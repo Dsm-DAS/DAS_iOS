@@ -12,6 +12,9 @@
 		670487C128D209AE0052D49E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670487C028D209AE0052D49E /* ViewController.swift */; };
 		670487C628D209AF0052D49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 670487C528D209AF0052D49E /* Assets.xcassets */; };
 		670487C928D209AF0052D49E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 670487C728D209AF0052D49E /* LaunchScreen.storyboard */; };
+		67420FCD28D213A500C393B6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCC28D213A500C393B6 /* SnapKit */; };
+		67420FD028D213D200C393B6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCF28D213D200C393B6 /* Then */; };
+		67420FD328D2146A00C393B6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FD228D2146A00C393B6 /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67420FCD28D213A500C393B6 /* SnapKit in Frameworks */,
+				67420FD028D213D200C393B6 /* Then in Frameworks */,
+				67420FD328D2146A00C393B6 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,7 @@
 			children = (
 				670487BB28D209AE0052D49E /* DAS */,
 				670487BA28D209AE0052D49E /* Products */,
+				67420FD128D2146A00C393B6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,13 @@
 			path = DAS;
 			sourceTree = "<group>";
 		};
+		67420FD128D2146A00C393B6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,6 +94,11 @@
 			dependencies = (
 			);
 			name = DAS;
+			packageProductDependencies = (
+				67420FCC28D213A500C393B6 /* SnapKit */,
+				67420FCF28D213D200C393B6 /* Then */,
+				67420FD228D2146A00C393B6 /* Moya */,
+			);
 			productName = DAS;
 			productReference = 670487B928D209AE0052D49E /* DAS.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +127,11 @@
 				Base,
 			);
 			mainGroup = 670487B028D209AE0052D49E;
+			packageReferences = (
+				67420FCA28D20E1000C393B6 /* XCRemoteSwiftPackageReference "Moya" */,
+				67420FCB28D213A500C393B6 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				67420FCE28D213D200C393B6 /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			productRefGroup = 670487BA28D209AE0052D49E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -275,13 +299,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DAS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DAS;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -289,6 +317,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Dsm-DAS.DAS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -302,13 +333,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DAS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DAS;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +351,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Dsm-DAS.DAS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -344,6 +382,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67420FCA28D20E1000C393B6 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
+		67420FCB28D213A500C393B6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		67420FCE28D213D200C393B6 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67420FCC28D213A500C393B6 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67420FCB28D213A500C393B6 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		67420FCF28D213D200C393B6 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67420FCE28D213D200C393B6 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		67420FD228D2146A00C393B6 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67420FCA28D20E1000C393B6 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 670487B128D209AE0052D49E /* Project object */;
 }
