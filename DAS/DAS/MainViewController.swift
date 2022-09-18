@@ -3,20 +3,21 @@ import SnapKit
 import Then
 
 class MainViewController: UIViewController {
-    let topView = UIView().then {
-        $0.backgroundColor = UIColor(named: "topViewBackGround")
-    }
     let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "Logo")
-        $0.sizeToFit()
     }
-    let noticeButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "Notice"), for: .normal)
+    let noticeButton = UIBarButtonItem(
+        image: UIImage(named: "Notice"),
+        style: .plain,
+        target: nil,
+        action: #selector(noticeButtonDidTap)
+    ).then {
         $0.tintColor = .white
     }
-    let clubScrollView = UIScrollView().then {
-        $0.backgroundColor = UIColor(named: "topViewBackGround")
-    }
+
+    let clubScrollView = UIScrollView()
+    
+    let contentView = UIView()
     
     let clubImageView1 = UIImageView().then {
         $0.image = UIImage(named: "ClubImage")
@@ -26,47 +27,52 @@ class MainViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .init(named: "topViewBackGround")
         
     }
     override func viewWillLayoutSubviews() {
+        addSubviews()
         makeSubviewConstraints()
-        makeTopViewConstraints()
-        makeClubScrollViewConstraints()
+        setNavigation()
     }
-    
+
+    @objc
+    private func noticeButtonDidTap() {
+    }
+
+    private func setNavigation() {
+        self.navigationItem.leftBarButtonItem = .init(customView: logoImageView)
+        self.navigationItem.rightBarButtonItem = noticeButton
+    }
+    // MARK: - Layout
+    private func addSubviews() {
+        [clubScrollView].forEach { view.addSubview($0) }
+        self.clubScrollView.addSubview(contentView)
+        clubScrollView.contentSize = contentView.frame.size
+        [clubImageView1, clubImageView2].forEach {contentView.addSubview($0)}
+    }
+
     private func makeSubviewConstraints() {
-        [topView].forEach {view.addSubview($0)}
-        topView.snp.makeConstraints {
-            $0.left.right.top.equalToSuperview()
-            $0.height.equalTo(300)
-        }
-    }
-    private func makeTopViewConstraints() {
-        [logoImageView, noticeButton, clubScrollView].forEach {topView.addSubview($0)}
-        logoImageView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(30)
-            $0.top.equalToSuperview().inset(70)
-        }
-        noticeButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(30)
-            $0.top.equalToSuperview().inset(70)
-        }
         clubScrollView.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom)
+            $0.topMargin.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(200)
-        }
-    }
-    private func makeClubScrollViewConstraints() {
-        [clubImageView1,clubImageView2].forEach {clubScrollView.addSubview($0)}
-        clubImageView1.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(30)
-            $0.width.equalTo(366)
             $0.height.equalTo(139)
+            $0.width.equalToSuperview()
+        }
+        contentView.snp.makeConstraints {
+            $0.left.equalToSuperview()
+            $0.width.equalTo(view.frame.width * 2)
+            $0.height.equalToSuperview()
+        }
+        clubImageView1.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(20)
+            $0.height.equalToSuperview()
+            $0.top.equalToSuperview()
         }
         clubImageView2.snp.makeConstraints {
-            $0.width.equalTo(366)
-            $0.height.equalTo(139)
+            $0.left.equalTo(clubImageView1.snp.right).offset(20)
+            $0.height.equalToSuperview()
+            $0.top.equalToSuperview()
         }
     }
 }
