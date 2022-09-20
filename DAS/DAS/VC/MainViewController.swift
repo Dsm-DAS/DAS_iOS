@@ -31,12 +31,10 @@ class MainViewController: UIViewController {
     
     private let pageControl = UIPageControl()
 
-    var collectionScrollView = UIScrollView().then {
+    private let collectionScrollView = UIScrollView().then {
         $0.backgroundColor = .white
     }
     private let collectionContentView = UIView()
-    
-        
     
     private let clubLabel = UILabel().then {
         $0.text = "동아리"
@@ -44,13 +42,24 @@ class MainViewController: UIViewController {
         $0.textColor = .black
     }
     
-    private let clubAllButton = UIButton().then {
+    private let clubAllButton = UIButton(type: .system).then {
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.setTitle("모두 보기", for: .normal)
+        $0.setTitleColor(UIColor(named: "MainColor"), for: .normal)
+    }
+    private let studentLabel = UILabel().then {
+        $0.text = "학생"
+        $0.font = UIFont.boldSystemFont(ofSize: 24)
+        $0.textColor = .black
+    }
+    
+    private let studentAllButton = UIButton(type: .system).then {
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         $0.setTitle("모두 보기", for: .normal)
         $0.setTitleColor(UIColor(named: "MainColor"), for: .normal)
     }
     
-    lazy var clubCollectionView : UICollectionView = {
+    private let clubCollectionView : UICollectionView = {
         var layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16.0
@@ -59,7 +68,18 @@ class MainViewController: UIViewController {
         layout.itemSize = CGSize(width: 312, height: 126)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ClubCollectionViewCell.self, forCellWithReuseIdentifier: "ClubCollectionViewCell")
-        view.backgroundColor = .black
+        return view
+    }()
+    
+    private let studentCollectionView : UICollectionView = {
+        var layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 20.0
+        layout.minimumInteritemSpacing = 0.0
+        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        layout.itemSize = CGSize(width: 190, height: 60)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(StudentCollectionViewCell.self, forCellWithReuseIdentifier: "StudentCollectionViewCell")
         return view
     }()
     
@@ -68,6 +88,8 @@ class MainViewController: UIViewController {
         pageControl.addTarget(self, action: #selector(pageControlDidTap), for: .valueChanged)
         clubCollectionView.delegate = self
         clubCollectionView.dataSource = self
+        studentCollectionView.delegate = self
+        studentCollectionView.dataSource = self
     }
     override func viewWillLayoutSubviews() {
         addSubviews()
@@ -75,6 +97,7 @@ class MainViewController: UIViewController {
         setNavigation()
         addContentScrollView()
         clubScrollView.delegate = self
+        collectionScrollView.delegate = self
         addContentScrollView()
         setPageControl()
     }
@@ -103,9 +126,9 @@ class MainViewController: UIViewController {
         [clubScrollView, clubNameLabel, pageControl, collectionScrollView].forEach { view.addSubview($0) }
         self.clubScrollView.addSubview(clubContentView)
         clubScrollView.contentSize = clubContentView.frame.size
-        collectionScrollView.addSubview(collectionContentView)
-        [clubLabel, clubAllButton, clubCollectionView].forEach {collectionContentView.addSubview($0)}
-        
+        [clubLabel, clubAllButton, clubCollectionView, studentLabel, studentAllButton, studentCollectionView].forEach {collectionContentView.addSubview($0)}
+        self.collectionScrollView.addSubview(collectionContentView)
+        collectionScrollView.contentSize = collectionContentView.frame.size
     }
 
     
@@ -127,7 +150,7 @@ class MainViewController: UIViewController {
         view.backgroundColor = .init(named: "topViewBackGround")
         clubScrollView.snp.makeConstraints {
             $0.topMargin.equalToSuperview().inset(12)
-            $0.left.right.equalTo(view.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
             $0.height.equalTo(139)
             $0.width.equalToSuperview()
         }
@@ -149,9 +172,9 @@ class MainViewController: UIViewController {
             $0.left.right.bottom.equalToSuperview()
         }
         collectionContentView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(view.frame.height)
+            $0.edges.equalTo(collectionScrollView.contentLayoutGuide)
+            $0.width.equalToSuperview()
+            $0.height.equalTo(view.frame.size)
         }
         clubLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
@@ -166,7 +189,22 @@ class MainViewController: UIViewController {
         clubCollectionView.snp.makeConstraints {
             $0.top.equalTo(clubLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(268)
+        }
+        studentLabel.snp.makeConstraints {
+            $0.top.equalTo(clubCollectionView.snp.bottom).offset(40)
+            $0.left.equalToSuperview().inset(21)
+            $0.height.equalTo(30)
+        }
+        studentAllButton.snp.makeConstraints {
+            $0.top.equalTo(clubCollectionView.snp.bottom).offset(45)
+            $0.left.equalTo(studentLabel.snp.right).offset(16)
+            $0.height.equalTo(20)
+        }
+        studentCollectionView.snp.makeConstraints {
+            $0.top.equalTo(studentLabel.snp.bottom).offset(8)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(380)
         }
     }
 }
@@ -187,17 +225,30 @@ extension MainViewController : UIScrollViewDelegate {
 
 extension MainViewController :UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        if collectionView == clubCollectionView {
+            return 6
+        } else if collectionView == studentCollectionView {
+            return 10
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClubCollectionViewCell", for: indexPath) as! ClubCollectionViewCell
-        cell.clubImageView.image = UIImage(named: "ClubImageMini" )
-        cell.clubNameLabel.text = "동아리 이름"
-        
-        return cell
+        if collectionView == clubCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClubCollectionViewCell", for: indexPath) as! ClubCollectionViewCell
+            cell.clubImageView.image = UIImage(named: "ClubImageMini" )
+            cell.clubNameLabel.text = "동아리 이름"
+            
+            return cell
+        } else if collectionView == studentCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StudentCollectionViewCell", for: indexPath) as! StudentCollectionViewCell
+            cell.studentImageView.image = UIImage(named: "CellImage")
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
+
     }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 320, height: collectionView.frame.height)
-//    }
+
 }
