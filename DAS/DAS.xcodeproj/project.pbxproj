@@ -19,8 +19,16 @@
 		674EAC9B28D480B5004D8465 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9A28D480B5004D8465 /* ListViewController.swift */; };
 		674EAC9D28D480DA004D8465 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9C28D480DA004D8465 /* SearchViewController.swift */; };
 		674EAC9F28D480F6004D8465 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9E28D480F6004D8465 /* MenuViewController.swift */; };
+		679A76FC28DD7AF200132D68 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 679A76FB28DD7AF200132D68 /* RxCocoa */; };
+		679A76FE28DD7AF200132D68 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 679A76FD28DD7AF200132D68 /* RxSwift */; };
+		67BA516B28DF387300A94B24 /* LoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA516A28DF387300A94B24 /* LoginDataModel.swift */; };
 		67C12FBA28D838A600C10820 /* ClubCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */; };
 		67C12FBC28D8392E00C10820 /* StudentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */; };
+		67CE0C2C28DAA47E00A4C7C4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C2B28DAA47E00A4C7C4 /* Client.swift */; };
+		67CE0C2E28DAA49B00A4C7C4 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C2D28DAA49B00A4C7C4 /* Header.swift */; };
+		67CE0C3328DAA56500A4C7C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */; };
+		67CE0C3528DAA57900A4C7C4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */; };
+		67CE0C3728DAADB600A4C7C4 /* TextFiledPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3628DAADB600A4C7C4 /* TextFiledPadding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +43,14 @@
 		674EAC9A28D480B5004D8465 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		674EAC9C28D480DA004D8465 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		674EAC9E28D480F6004D8465 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		67BA516A28DF387300A94B24 /* LoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataModel.swift; sourceTree = "<group>"; };
 		67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCollectionViewCell.swift; sourceTree = "<group>"; };
 		67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionViewCell.swift; sourceTree = "<group>"; };
+		67CE0C2B28DAA47E00A4C7C4 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		67CE0C2D28DAA49B00A4C7C4 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		67CE0C3628DAADB600A4C7C4 /* TextFiledPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFiledPadding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +60,8 @@
 			files = (
 				67420FCD28D213A500C393B6 /* SnapKit in Frameworks */,
 				67420FD028D213D200C393B6 /* Then in Frameworks */,
+				679A76FE28DD7AF200132D68 /* RxSwift in Frameworks */,
+				679A76FC28DD7AF200132D68 /* RxCocoa in Frameworks */,
 				67420FD328D2146A00C393B6 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,10 +89,15 @@
 		670487BB28D209AE0052D49E /* DAS */ = {
 			isa = PBXGroup;
 			children = (
+				67BA516928DF385200A94B24 /* Model */,
+				67CE0C2F28DAA4A000A4C7C4 /* Header */,
+				67CE0C3028DAA4A900A4C7C4 /* HttpClient */,
+				67CE0C3128DAA52C00A4C7C4 /* Login&SignUp VC */,
+				67C12FBE28D8394500C10820 /* VC */,
+				67C12FBD28D8393900C10820 /* CollecitonViewCell */,
+				67CE0C3628DAADB600A4C7C4 /* TextFiledPadding.swift */,
 				670487BC28D209AE0052D49E /* AppDelegate.swift */,
 				670487BE28D209AE0052D49E /* SceneDelegate.swift */,
-				67C12FBE28D8394500C10820 /* VC */,
-				67C12FBD28D8393900C10820 /* Cell */,
 				670487C528D209AF0052D49E /* Assets.xcassets */,
 				670487C728D209AF0052D49E /* LaunchScreen.storyboard */,
 				670487CA28D209AF0052D49E /* Info.plist */,
@@ -91,13 +112,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		67C12FBD28D8393900C10820 /* Cell */ = {
+		67BA516928DF385200A94B24 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				67BA516A28DF387300A94B24 /* LoginDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		67C12FBD28D8393900C10820 /* CollecitonViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */,
 				67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */,
 			);
-			path = Cell;
+			path = CollecitonViewCell;
 			sourceTree = "<group>";
 		};
 		67C12FBE28D8394500C10820 /* VC */ = {
@@ -110,6 +139,31 @@
 				674EAC9E28D480F6004D8465 /* MenuViewController.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		67CE0C2F28DAA4A000A4C7C4 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				67CE0C2D28DAA49B00A4C7C4 /* Header.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		67CE0C3028DAA4A900A4C7C4 /* HttpClient */ = {
+			isa = PBXGroup;
+			children = (
+				67CE0C2B28DAA47E00A4C7C4 /* Client.swift */,
+			);
+			path = HttpClient;
+			sourceTree = "<group>";
+		};
+		67CE0C3128DAA52C00A4C7C4 /* Login&SignUp VC */ = {
+			isa = PBXGroup;
+			children = (
+				67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */,
+				67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */,
+			);
+			path = "Login&SignUp VC";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +186,8 @@
 				67420FCC28D213A500C393B6 /* SnapKit */,
 				67420FCF28D213D200C393B6 /* Then */,
 				67420FD228D2146A00C393B6 /* Moya */,
+				679A76FB28DD7AF200132D68 /* RxCocoa */,
+				679A76FD28DD7AF200132D68 /* RxSwift */,
 			);
 			productName = DAS;
 			productReference = 670487B928D209AE0052D49E /* DAS.app */;
@@ -165,6 +221,7 @@
 				67420FCA28D20E1000C393B6 /* XCRemoteSwiftPackageReference "Moya" */,
 				67420FCB28D213A500C393B6 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				67420FCE28D213D200C393B6 /* XCRemoteSwiftPackageReference "Then" */,
+				679A76FA28DD7AF200132D68 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 670487BA28D209AE0052D49E /* Products */;
 			projectDirPath = "";
@@ -192,15 +249,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67CE0C3328DAA56500A4C7C4 /* LoginViewController.swift in Sources */,
 				674EAC9D28D480DA004D8465 /* SearchViewController.swift in Sources */,
 				670487C128D209AE0052D49E /* TabBarViewController.swift in Sources */,
 				670487BD28D209AE0052D49E /* AppDelegate.swift in Sources */,
+				67BA516B28DF387300A94B24 /* LoginDataModel.swift in Sources */,
 				674EAC9F28D480F6004D8465 /* MenuViewController.swift in Sources */,
 				67C12FBA28D838A600C10820 /* ClubCollectionViewCell.swift in Sources */,
+				67CE0C2E28DAA49B00A4C7C4 /* Header.swift in Sources */,
 				670487BF28D209AE0052D49E /* SceneDelegate.swift in Sources */,
 				674EAC9B28D480B5004D8465 /* ListViewController.swift in Sources */,
 				67C12FBC28D8392E00C10820 /* StudentCollectionViewCell.swift in Sources */,
+				67CE0C2C28DAA47E00A4C7C4 /* Client.swift in Sources */,
+				67CE0C3528DAA57900A4C7C4 /* SignUpViewController.swift in Sources */,
 				674EAC9928D4804C004D8465 /* MainViewController.swift in Sources */,
+				67CE0C3728DAADB600A4C7C4 /* TextFiledPadding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +511,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		679A76FA28DD7AF200132D68 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -465,6 +536,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 67420FCA28D20E1000C393B6 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		679A76FB28DD7AF200132D68 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 679A76FA28DD7AF200132D68 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		679A76FD28DD7AF200132D68 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 679A76FA28DD7AF200132D68 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
