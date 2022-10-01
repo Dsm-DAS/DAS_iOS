@@ -7,12 +7,9 @@ class MainViewController: UIViewController {
     private let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "Logo")
     }
-    private let noticeButton = UIBarButtonItem(
-        image: UIImage(named: "Notice"),
-        style: .plain,
-        target: nil,
-        action: #selector(noticeButtonDidTap)
-    ).then {
+    private let noticeButton = UIBarButtonItem().then {
+        $0.image = UIImage(named: "Notice")
+        $0.action = #selector(noticeButtonDidTap)
         $0.tintColor = .white
     }
 
@@ -77,7 +74,7 @@ class MainViewController: UIViewController {
         layout.minimumLineSpacing = 20.0
         layout.minimumInteritemSpacing = 0.0
         layout.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-        layout.itemSize = CGSize(width: 190, height: 60)
+        layout.itemSize = CGSize(width: 170, height: 60)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(StudentCollectionViewCell.self, forCellWithReuseIdentifier: "StudentCollectionViewCell")
         return view
@@ -85,11 +82,9 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageControl.addTarget(self, action: #selector(pageControlDidTap), for: .valueChanged)
-        clubCollectionView.delegate = self
-        clubCollectionView.dataSource = self
-        studentCollectionView.delegate = self
-        studentCollectionView.dataSource = self
+        targets()
+        delegates()
+        tokenIsEmpty()
     }
     override func viewWillLayoutSubviews() {
         addSubviews()
@@ -101,24 +96,38 @@ class MainViewController: UIViewController {
         addContentScrollView()
         setPageControl()
     }
-
     @objc
     private func noticeButtonDidTap() {
+        
     }
-    
-    
     @objc
     private func pageControlDidTap(_ sender: UIPageControl) {
         let current = sender.currentPage
         clubScrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
     }
-
-
+    private func targets(){
+        pageControl.addTarget(self, action: #selector(pageControlDidTap), for: .valueChanged)
+        noticeButton.target = self
+    }
+    private func delegates() {
+        clubCollectionView.delegate = self
+        clubCollectionView.dataSource = self
+        studentCollectionView.delegate = self
+        studentCollectionView.dataSource = self
+    }
+    private func tokenIsEmpty(){
+        print(Token.accessToken)
+        Token.accessToken = nil 
+        if Token.accessToken == nil {
+            let vc = LoginViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
+    }
     private func setNavigation() {
         self.navigationItem.leftBarButtonItem = .init(customView: logoImageView)
         self.navigationItem.rightBarButtonItem = noticeButton
     }
-    
     
     
     // MARK: - Layout
@@ -174,7 +183,7 @@ class MainViewController: UIViewController {
         collectionContentView.snp.makeConstraints {
             $0.edges.equalTo(collectionScrollView.contentLayoutGuide)
             $0.width.equalToSuperview()
-            $0.height.equalTo(view.frame.size)
+            $0.height.equalTo(790)
         }
         clubLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
@@ -218,15 +227,17 @@ extension MainViewController : UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let value = scrollView.contentOffset.x/scrollView.bounds.size.width
-        setPageControlSelectedPage(currentPage: Int(round(value)))
+        if scrollView == clubScrollView {
+            let value = scrollView.contentOffset.x/scrollView.bounds.size.width
+            setPageControlSelectedPage(currentPage: Int(round(value)))
+        }
     }
 }
 
 extension MainViewController :UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == clubCollectionView {
-            return 6
+            return 10
         } else if collectionView == studentCollectionView {
             return 10
         } else {
