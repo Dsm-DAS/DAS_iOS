@@ -1,6 +1,6 @@
 import Foundation
 
-struct LoginDataModel : Codable {
+struct TokenModel: Codable {
     let access_token : String
     let refresh_token : String
 }

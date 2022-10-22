@@ -1,8 +1,10 @@
 import UIKit
 import SnapKit
 import Then
-
-class LoginViewController: UIViewController {
+import RxCocoa
+import RxSwift
+class LoginViewController: BaseVC {
+    let viewModel = LoginViewModel()
     private let logoImageView = UIImageView().then {
         $0.image = UIImage(named:"Logo2")
     }
@@ -34,13 +36,13 @@ class LoginViewController: UIViewController {
         $0.isSecureTextEntry = true
     }
     private let loginButton = UIButton(type: .system).then {
-        $0.backgroundColor = UIColor(named: "SignUpButton")
+        $0.setBackgroundColor(UIColor(named: "MainColor")! , for: .normal)
+        $0.setBackgroundColor(UIColor(named: "SignUpButton")!, for: .disabled)
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.gray.cgColor
         $0.layer.cornerRadius = 8
-        $0.isEnabled = false
     }
     private let signUpButton = UIButton(type: .system).then {
         $0.backgroundColor = UIColor(named: "SignUpButtonColor")
@@ -50,67 +52,44 @@ class LoginViewController: UIViewController {
         $0.layer.borderColor = UIColor.gray.cgColor
         $0.layer.cornerRadius = 8
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        targets()
+    override func configureVC() {
+        textFieldDidChange()
+        touchSignupButton()
     }
-    override func viewWillLayoutSubviews() {
-        view.backgroundColor = .white
-        addSubView()
-        makeLayoutConstraints()
-    }
-    private func targets(){
-        loginButton.addTarget(self, action:#selector(touchLoginButton), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(touchSignUpButton), for: .touchUpInside)
-        [emailTextField,passwordTextField].forEach {$0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)}
-    }
-    @objc func textFieldDidChange(_ sender: Any?) {
-        if emailTextField.text! != "" && passwordTextField.text! != "" {
-            loginButton.backgroundColor = UIColor(named: "MainColor")
-            loginButton.isEnabled = true
-        } else {
-            loginButton.backgroundColor = UIColor(named: "SignUpButton")
-            loginButton.isEnabled = false
-        }
-    }
-    
-    @objc
-    func touchLoginButton(){
-        guard let email = emailTextField.text, email.isEmpty == false else { return }
-        guard let password = passwordTextField.text, password.isEmpty == false else { return }
-        MY.request(.login(email: email, password: password)) { res in
-            switch res {
-            case .success(let result):
-                switch result.statusCode {
-                case 200:
-                    let decoder = JSONDecoder()
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true)
-                    }
-                    if let data = try? decoder.decode(LoginDataModel.self, from: result.data){
-                        Token.accessToken = data.access_token
-                        Token.refreshToken = data.refresh_token
-                    }
-                default:
-                    print("Login result err")
-                }
-            case .failure(_):
-                print("Login respons err")
+    override func bind() {
+        let input = LoginViewModel.Input(emailText: emailTextField.rx.text.orEmpty.asDriver(), passwordText: passwordTextField.rx.text.orEmpty.asDriver(), loginButtonDidTap: loginButton.rx.tap.asSignal())
+        let output = viewModel.transform(input)
+        output.result.subscribe(onNext: {
+            switch $0 {
+            case true:
+                self.dismiss(animated: true)
+                print("login 성공")
+            case false:
+                print("login 실패")
             }
-        }
+        }).disposed(by: disposeBag)
     }
-    @objc
-    func touchSignUpButton(){
-        let vc = SignUpViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+    private func textFieldDidChange() {
+        let textField = Observable.combineLatest(emailTextField.rx.text.orEmpty, passwordTextField.rx.text.orEmpty)
+        textField
+            .map { $0.count != 0 && $1.count != 0 }
+            .bind(to: loginButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
-    private func addSubView(){
+    private func touchSignupButton() {
+        signUpButton.rx.tap
+            .subscribe(onNext: {
+                let vc = SignUpViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+            }).disposed(by: disposeBag)
+    }
+    override func addView() {
         [logoImageView, loginLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, signUpButton].forEach {
             view.addSubview($0)
         }
     }
-    private func makeLayoutConstraints() {
+    override func setLayout() {
         logoImageView.snp.makeConstraints {
             $0.top.lessThanOrEqualToSuperview().inset(254)
             $0.centerX.equalToSuperview()
@@ -153,4 +132,5 @@ class LoginViewController: UIViewController {
             $0.bottom.lessThanOrEqualToSuperview().inset(130)
         }
     }
+      
 }

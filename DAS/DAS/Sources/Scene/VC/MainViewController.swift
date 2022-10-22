@@ -117,7 +117,7 @@ class MainViewController: UIViewController {
     }
     private func tokenIsEmpty(){
         print(Token.accessToken)
-        Token.accessToken = nil 
+        Token.accessToken = nil
         if Token.accessToken == nil {
             let vc = LoginViewController()
             vc.modalPresentationStyle = .fullScreen
