@@ -9,7 +9,7 @@ class SignUpViewController: UIViewController {
         $0.backgroundColor = .white
     }
     private let contentView = UIView().then {
-        $0.backgroundColor  = UIColor(named: "BackGroundColor")
+        $0.backgroundColor  = .white
     }
     private let logoImageView = UIImageView().then {
         $0.image = UIImage(named:"Logo2")
@@ -26,8 +26,8 @@ class SignUpViewController: UIViewController {
         $0.addLeftPadding()
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 8
-//        $0.layer.borderWidth = 1
-//        $0.layer.borderColor = UIColor.gray.cgColor
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.gray.cgColor
     }
     private let emailCkeckCodeButton = UIButton(type: .system).then {
         $0.setTitle("전송", for: .normal)
