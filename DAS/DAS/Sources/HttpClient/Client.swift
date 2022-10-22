@@ -1,18 +1,18 @@
 import Foundation
 import Moya
 
-let MY = MoyaProvider<listService>()
+let MY = MoyaProvider<API>()
 
-enum listService {
+enum API {
     case login(email: String, password: String)
     case signUp(email: String, password: String, name: String, grade: Int, classNum: Int, number: Int)
     case sentEmailCode(email : String)
     case codecheck(email : String, emailCode : String)
 }
 
-extension listService: TargetType {
+extension API: TargetType {
     var baseURL: URL {
-        return URL(string: "http://10.156.147.161:8080")!
+        return URL(string: "http://192.168.223.97:8080")!
     }
     
     var path: String {
