@@ -1,7 +1,10 @@
 import UIKit
 import SnapKit
 import Then
-class SignUpViewController: UIViewController {
+import RxSwift
+import RxCocoa
+class SignUpViewController: BaseVC {
+    let viewModel = SignUpViewModel()
     var gradeList = [["1","2","3"],["1","2","3","4"],["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]]
     var seletedPicker = ["1","1","1"]
     let picker = UIPickerView()
@@ -116,80 +119,66 @@ class SignUpViewController: UIViewController {
         $0.addLeftPadding()
     }
     private var signUpButton = UIButton(type: .system).then {
-        $0.backgroundColor = UIColor(named: "SignUpButton")
+        $0.setBackgroundColor(UIColor(named: "MainColor")! , for: .normal)
+        $0.setBackgroundColor(UIColor(named: "SignUpButton")!, for: .disabled)
         $0.setTitle("가입", for: .normal)
         $0.setTitleColor(UIColor.black, for: .normal)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.gray.cgColor
         $0.layer.cornerRadius = 8
-        $0.isEnabled = false
+        $0.isEnabled = true
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func configureVC() {
         configPickerView()
-        targets()
+        textFieldDidChange()
+        gradeTextField.rx.text.orEmpty.subscribe({
+            print($0)
+        }).disposed(by: disposeBag)
     }
-    override func viewWillLayoutSubviews() {
-        addSubView()
-        makeLayoutConstraints()
-    }
-    func targets(){
-        [emailTextField,passwordTextField,nameTextField,emailCheckTextField,passwordCheckTextField].forEach {$0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)}
-        [numberTextField,classTextField,gradeTextField].forEach {$0.addTarget(self, action: #selector(textFieldDidChange(_:)), for:     .editingDidEnd)}
-        signUpButton.addTarget(self, action: #selector(touchSignUpButton), for: .touchUpInside)
-        emailCkeckCodeButton.addTarget(self, action: #selector(touchEmailCodeButton), for: .touchUpInside)
-        emailCheckButton.addTarget(self, action: #selector(touchCodeCheckButton), for: .touchUpInside)
-    }
-    @objc func textFieldDidChange(_ sender: Any?) {
-        if emailTextField.text! != "" && passwordTextField.text! != "" && nameTextField.text! != "" && emailCheckTextField.text! != "" && classTextField.text! != "" && gradeTextField.text! != "" && numberTextField.text! != "" && passwordCheckTextField.text! != "" {
-            signUpButton.isEnabled = true
-            signUpButton.backgroundColor = UIColor(named: "MainColor")
-        } else {
-            signUpButton.isEnabled = false
-            signUpButton.backgroundColor = UIColor(named: "SignUpButton")
-        }
-    }
-    @objc func touchEmailCodeButton(){
-        guard let email = emailTextField.text, email.isEmpty == false else { return }
-        MY.request(.sentEmailCode(email: email)){ res in
-            switch res {
-            case .success(let result):
-                switch result.statusCode {
-                case 201:
+    override func bind() {
+        let input = SignUpViewModel.Input(emailText: emailTextField.rx.text.orEmpty.asDriver(),
+                                          codeText: emailCheckTextField.rx.text.orEmpty.asDriver(),
+                                          passwordText: passwordTextField.rx.text.orEmpty.asDriver(),
+                                          emailCheckCodeButtonDidTap: emailCkeckCodeButton.rx.tap.asSignal(),
+                                          emailCheckButtonDidTap: emailCheckButton.rx.tap.asSignal())
+        let output = viewModel.transform(input)
+        output.sentEmailCodeResult.asObservable()
+            .subscribe(onNext: {
+                switch $0 {
+                case true:
                     print("성공")
                     self.emailCheckButton.isEnabled = true
                     self.emailCheckButton.backgroundColor = UIColor(named: "MainColor")
                     self.alert(title: "안내", message: "인증번호 전송")
-                default:
-                    print(result.statusCode)
-                    print("emailCode sent err")
+                case false:
+                    print("실패")
                 }
-                
-            case .failure:
-                print("emailCode respons err")
-            }
-        }
-        
-    }
-    @objc func touchCodeCheckButton(){
-        guard let email = emailTextField.text, email.isEmpty == false else { return }
-        guard let code = emailCheckTextField.text, code.isEmpty == false else { return }
-        MY.request(.codecheck(email: email, emailCode: code)){ res in
-            switch res {
-            case.success(let result):
-                switch result.statusCode{
-                case 200:
-                    self.alert(title: "안내", message: "이메일 인증 성공")
+            }).disposed(by: disposeBag)
+        output.codeCheckResult.asObservable()
+            .subscribe(onNext: {
+                switch $0 {
+                case true:
                     print("성공")
-                default:
-                    print(code)
-                    print("다시")
+                    self.alert(title: "안내", message: "이메일 인증 성공")
+                case false:
+                    print("실패")
                 }
-                
-            case.failure:
-                print("code respons err")
+            }).disposed(by: disposeBag)
+    }
+    func textFieldDidChange() {
+        let textField = Observable.combineLatest(emailTextField.rx.text.orEmpty,
+                                                 passwordTextField.rx.text.orEmpty,
+                                                 nameTextField.rx.text.orEmpty,
+                                                 emailCheckTextField.rx.text.orEmpty,
+                                                 gradeTextField.rx.text.orEmpty,
+                                                 classTextField.rx.text.orEmpty,
+                                                 numberTextField.rx.text.orEmpty)
+        
+        textField
+            .map { $0.count != 0 && $1.count != 0 && $2.count != 0 && $3.count != 0 && $4.count != 0 && $5.count != 0 && $6.count != 0
             }
-        }
+            .bind(to: signUpButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
     @objc func touchSignUpButton(){
         guard let email = emailTextField.text, email.isEmpty == false else { return }
@@ -227,14 +216,14 @@ class SignUpViewController: UIViewController {
         alert.addAction(okAction)
         present(alert, animated: true, completion:nil)
     }
-    private func addSubView(){
+    override func addView() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         [logoImageView, signUpLabel, emailLabel, emailTextField, emailCkeckCodeButton, emailNoticeLabel, emailCheckLabel, emailCheckTextField, emailCheckButton, nameLabel, nameTextField, passwordLabel, passwordTextField, passwordStateLabel, passwordCheckLabel, passwordCheckTextField, gradeTextField, classTextField, numberTextField, signUpButton].forEach {
             contentView.addSubview($0)
         }
     }
-    private func makeLayoutConstraints(){
+    override func setLayout() {
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -243,7 +232,6 @@ class SignUpViewController: UIViewController {
             $0.width.equalToSuperview()
             $0.height.equalTo(800)
         }
-//        view.backgroundColor = .white
         logoImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(104)
             $0.centerX.equalToSuperview()
@@ -351,7 +339,6 @@ class SignUpViewController: UIViewController {
             $0.top.equalTo(gradeTextField.snp.bottom).offset(28)
             $0.left.right.equalToSuperview().inset(32)
             $0.height.greaterThanOrEqualTo(36)
-//            $0.bottom.equalToSuperview().inset(130)
         }
     }
 }
