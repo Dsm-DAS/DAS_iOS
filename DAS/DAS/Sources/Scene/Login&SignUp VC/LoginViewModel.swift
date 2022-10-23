@@ -23,7 +23,7 @@ class LoginViewModel: ViewModel {
             .asObservable()
             .withLatestFrom(info)
             .flatMap{ email, password in
-                api.signIn(email, password)
+                api.login(email, password)
             }.subscribe(onNext: { res in
                 switch res {
                 case .ok:
