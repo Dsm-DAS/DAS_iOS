@@ -12,6 +12,7 @@
 		670487C128D209AE0052D49E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670487C028D209AE0052D49E /* TabBarViewController.swift */; };
 		670487C628D209AF0052D49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 670487C528D209AF0052D49E /* Assets.xcassets */; };
 		670487C928D209AF0052D49E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 670487C728D209AF0052D49E /* LaunchScreen.storyboard */; };
+		670632E72903FAFB00A4C6CA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670632E62903FAFB00A4C6CA /* SignUpViewModel.swift */; };
 		67420FCD28D213A500C393B6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCC28D213A500C393B6 /* SnapKit */; };
 		67420FD028D213D200C393B6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCF28D213D200C393B6 /* Then */; };
 		67420FD328D2146A00C393B6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FD228D2146A00C393B6 /* Moya */; };
@@ -45,6 +46,7 @@
 		670487C028D209AE0052D49E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		670487C528D209AF0052D49E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		670487C828D209AF0052D49E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		670632E62903FAFB00A4C6CA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		674EAC9828D4804C004D8465 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		674EAC9A28D480B5004D8465 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		674EAC9C28D480DA004D8465 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */,
 				6751269F29027D7400261437 /* LoginViewModel.swift */,
 				67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */,
+				670632E62903FAFB00A4C6CA /* SignUpViewModel.swift */,
 			);
 			path = "Login&SignUp VC";
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				674EAC9928D4804C004D8465 /* MainViewController.swift in Sources */,
 				675126A22902847300261437 /* UIButton+setBackgroundColor.swift in Sources */,
 				6785B0FA2903E3510089E719 /* BaseVC.swift in Sources */,
+				670632E72903FAFB00A4C6CA /* SignUpViewModel.swift in Sources */,
 				67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
