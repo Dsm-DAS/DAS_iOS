@@ -130,7 +130,7 @@ class SignUpViewController: BaseVC {
     }
     override func configureVC() {
         configPickerView()
-        textFieldDidChange()
+//        textFieldDidChange()
         gradeTextField.rx.text.orEmpty.subscribe({
             print($0)
         }).disposed(by: disposeBag)
@@ -138,9 +138,14 @@ class SignUpViewController: BaseVC {
     override func bind() {
         let input = SignUpViewModel.Input(emailText: emailTextField.rx.text.orEmpty.asDriver(),
                                           codeText: emailCheckTextField.rx.text.orEmpty.asDriver(),
+                                          nameText: nameTextField.rx.text.orEmpty.asDriver(),
                                           passwordText: passwordTextField.rx.text.orEmpty.asDriver(),
+                                          gradeText: gradeTextField.rx.text.orEmpty.asDriver(),
+                                          classText: classTextField.rx.text.orEmpty.asDriver(),
+                                          numberText: numberTextField.rx.text.orEmpty.asDriver(),
                                           emailCheckCodeButtonDidTap: emailCkeckCodeButton.rx.tap.asSignal(),
-                                          emailCheckButtonDidTap: emailCheckButton.rx.tap.asSignal())
+                                          emailCheckButtonDidTap: emailCheckButton.rx.tap.asSignal(),
+                                          signupBttonDidTap: signUpButton.rx.tap.asSignal())
         let output = viewModel.transform(input)
         output.sentEmailCodeResult.asObservable()
             .subscribe(onNext: {
@@ -164,6 +169,27 @@ class SignUpViewController: BaseVC {
                     print("실패")
                 }
             }).disposed(by: disposeBag)
+        output.signUpResult.asObservable()
+            .subscribe(onNext: {
+                switch $0 {
+                case true:
+                    print("성공")
+                    self.alert(title: "회원가입", message: "회원가입 완료")
+                case false:
+                    print("실패")
+                }
+            }).disposed(by: disposeBag)
+        output.isEnable.asObservable()
+            .subscribe(onNext: {
+                switch $0 {
+                case true:
+                    self.signUpButton.isEnabled = true
+                case false:
+                    self.signUpButton.isEnabled = false
+                }
+                
+            }).disposed(by: disposeBag)
+        
     }
     func textFieldDidChange() {
         let textField = Observable.combineLatest(emailTextField.rx.text.orEmpty,
@@ -179,29 +205,6 @@ class SignUpViewController: BaseVC {
             }
             .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
-    }
-    @objc func touchSignUpButton(){
-        guard let email = emailTextField.text, email.isEmpty == false else { return }
-        guard let password = passwordTextField.text, password.isEmpty == false else { return }
-        guard let name = nameTextField.text, name.isEmpty == false else { return }
-        let grade = Int(seletedPicker[0]) ?? 0
-        let classNum = Int(seletedPicker[1]) ?? 0
-        let number = Int(seletedPicker[2]) ?? 0
-        MY.request(.signUp(email: email, password: password, name: name, grade: grade, classNum: classNum, number: number)) { res in
-            switch res {
-            case .success(let result):
-                switch result.statusCode{
-                case 201:
-                    self.alert(title: "회원가입", message: "회원가입 완료")
-                default:
-                    print("signup result err")
-                    print(result.statusCode)
-                }
-            case .failure:
-                print("signup respons err")
-            }
-            
-        }
     }
     private func alert(title:String,message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
