@@ -32,10 +32,13 @@
 		67BA516B28DF387300A94B24 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA516A28DF387300A94B24 /* TokenModel.swift */; };
 		67C12FBA28D838A600C10820 /* ClubCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */; };
 		67C12FBC28D8392E00C10820 /* StudentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */; };
+		67C5EFDA292914D00047CF18 /* EmailCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C5EFD9292914D00047CF18 /* EmailCodeViewController.swift */; };
+		67C5EFDC292914E50047CF18 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C5EFDB292914E50047CF18 /* PasswordViewController.swift */; };
+		67C5EFDE292915050047CF18 /* EtcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C5EFDD292915050047CF18 /* EtcViewController.swift */; };
 		67CE0C2C28DAA47E00A4C7C4 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C2B28DAA47E00A4C7C4 /* Client.swift */; };
 		67CE0C2E28DAA49B00A4C7C4 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C2D28DAA49B00A4C7C4 /* Header.swift */; };
 		67CE0C3328DAA56500A4C7C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */; };
-		67CE0C3528DAA57900A4C7C4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */; };
+		67CE0C3528DAA57900A4C7C4 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3428DAA57900A4C7C4 /* EmailViewController.swift */; };
 		67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,10 +64,13 @@
 		67BA516A28DF387300A94B24 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCollectionViewCell.swift; sourceTree = "<group>"; };
 		67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionViewCell.swift; sourceTree = "<group>"; };
+		67C5EFD9292914D00047CF18 /* EmailCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCodeViewController.swift; sourceTree = "<group>"; };
+		67C5EFDB292914E50047CF18 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		67C5EFDD292915050047CF18 /* EtcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtcViewController.swift; sourceTree = "<group>"; };
 		67CE0C2B28DAA47E00A4C7C4 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		67CE0C2D28DAA49B00A4C7C4 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		67CE0C3428DAA57900A4C7C4 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+padding.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,7 +245,10 @@
 			children = (
 				67CE0C3228DAA56500A4C7C4 /* LoginViewController.swift */,
 				6751269F29027D7400261437 /* LoginViewModel.swift */,
-				67CE0C3428DAA57900A4C7C4 /* SignUpViewController.swift */,
+				67CE0C3428DAA57900A4C7C4 /* EmailViewController.swift */,
+				67C5EFDB292914E50047CF18 /* PasswordViewController.swift */,
+				67C5EFDD292915050047CF18 /* EtcViewController.swift */,
+				67C5EFD9292914D00047CF18 /* EmailCodeViewController.swift */,
 				670632E62903FAFB00A4C6CA /* SignUpViewModel.swift */,
 			);
 			path = "Login&SignUp VC";
@@ -337,6 +346,7 @@
 				674EAC9F28D480F6004D8465 /* MenuViewController.swift in Sources */,
 				6751269C29027B5700261437 /* ViewModel.swift in Sources */,
 				67C12FBA28D838A600C10820 /* ClubCollectionViewCell.swift in Sources */,
+				67C5EFDE292915050047CF18 /* EtcViewController.swift in Sources */,
 				67CE0C2E28DAA49B00A4C7C4 /* Header.swift in Sources */,
 				670487BF28D209AE0052D49E /* SceneDelegate.swift in Sources */,
 				6785B0EF2903D0BE0089E719 /* Service.swift in Sources */,
@@ -345,11 +355,13 @@
 				67C12FBC28D8392E00C10820 /* StudentCollectionViewCell.swift in Sources */,
 				67CE0C2C28DAA47E00A4C7C4 /* Client.swift in Sources */,
 				6785B0F12903D4B40089E719 /* ServiceType.swift in Sources */,
-				67CE0C3528DAA57900A4C7C4 /* SignUpViewController.swift in Sources */,
+				67CE0C3528DAA57900A4C7C4 /* EmailViewController.swift in Sources */,
+				67C5EFDC292914E50047CF18 /* PasswordViewController.swift in Sources */,
 				674EAC9928D4804C004D8465 /* MainViewController.swift in Sources */,
 				675126A22902847300261437 /* UIButton+setBackgroundColor.swift in Sources */,
 				6785B0FA2903E3510089E719 /* BaseVC.swift in Sources */,
 				670632E72903FAFB00A4C6CA /* SignUpViewModel.swift in Sources */,
+				67C5EFDA292914D00047CF18 /* EmailCodeViewController.swift in Sources */,
 				67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
