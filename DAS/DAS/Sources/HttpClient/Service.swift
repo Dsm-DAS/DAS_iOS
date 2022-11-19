@@ -19,7 +19,7 @@ final class Service {
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}
     }
-    func sentEmailCode(_ email: String) -> Single<networkingResult> {
+    func sendEmailCode(_ email: String) -> Single<networkingResult> {
         return provider.rx.request(.sentEmailCode(email: email))
             .filterSuccessfulStatusCodes()
             .map{ response -> networkingResult in
