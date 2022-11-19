@@ -10,46 +10,45 @@ class LoginViewController: BaseVC {
     }
     private let loginLabel = UILabel().then {
         $0.text = "로그인"
-        $0.font = UIFont.boldSystemFont(ofSize: 24)
+        $0.font = .systemFont(ofSize: 24, weight: .bold)
+        $0.textColor = UIColor(named: "TextColor")
     }
     private let emailLabel = UILabel().then {
         $0.text = "이메일"
-        $0.font = UIFont.systemFont(ofSize: 16)
+        $0.font = .systemFont(ofSize: 16, weight: .bold)
+        $0.textColor = UIColor(named: "TextColor")
     }
     private let emailTextField = UITextField().then {
         $0.addLeftPadding()
-        $0.backgroundColor = .white
+        $0.backgroundColor = UIColor(named: "BackGroundColor")
         $0.layer.cornerRadius = 8
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray.cgColor
+        $0.layer.borderColor = UIColor(named: "SignUpButtonColor")?.cgColor
     }
     private let passwordLabel = UILabel().then {
         $0.text = "비밀번호"
-        $0.font = UIFont.systemFont(ofSize: 16)
+        $0.font = .systemFont(ofSize: 16, weight: .bold)
+        $0.textColor = UIColor(named: "TextColor")
     }
     private let passwordTextField = UITextField().then {
         $0.addLeftPadding()
-        $0.backgroundColor = .white
+        $0.backgroundColor = UIColor(named: "BackGroundColor")
         $0.layer.cornerRadius = 8
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray.cgColor
+        $0.layer.borderColor = UIColor(named: "SignUpButtonColor")?.cgColor
         $0.isSecureTextEntry = true
     }
     private let loginButton = UIButton(type: .system).then {
-        $0.setBackgroundColor(UIColor(named: "MainColor")! , for: .normal)
-        $0.setBackgroundColor(UIColor(named: "SignUpButton")!, for: .disabled)
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(UIColor.white, for: .normal)
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray.cgColor
         $0.layer.cornerRadius = 8
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     }
     private let signUpButton = UIButton(type: .system).then {
         $0.backgroundColor = UIColor(named: "SignUpButtonColor")
         $0.setTitle("가입", for: .normal)
         $0.setTitleColor(UIColor.black, for: .normal)
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.gray.cgColor
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         $0.layer.cornerRadius = 8
     }
     override func configureVC() {
@@ -73,13 +72,21 @@ class LoginViewController: BaseVC {
         let textField = Observable.combineLatest(emailTextField.rx.text.orEmpty, passwordTextField.rx.text.orEmpty)
         textField
             .map { $0.count != 0 && $1.count != 0 }
-            .bind(to: loginButton.rx.isEnabled)
+            .subscribe(onNext: {
+                self.loginButton.isEnabled = $0
+                switch $0{
+                case true:
+                    self.loginButton.backgroundColor = UIColor(named: "MainColor")
+                case false:
+                    self.loginButton.backgroundColor = UIColor(named: "SignUpButton")
+                }
+            })
             .disposed(by: disposeBag)
     }
     private func touchSignupButton() {
         signUpButton.rx.tap
             .subscribe(onNext: {
-                let vc = SignUpViewController()
+                let vc = UINavigationController(rootViewController: EmailViewController())
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true)
             }).disposed(by: disposeBag)
@@ -90,46 +97,45 @@ class LoginViewController: BaseVC {
         }
     }
     override func setLayout() {
-        logoImageView.snp.makeConstraints {
-            $0.top.lessThanOrEqualToSuperview().inset(254)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(160)
-            $0.height.equalTo(41)
-        }
         loginLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImageView.snp.bottom).offset(12)
-            $0.centerX.equalToSuperview()
+            $0.top.lessThanOrEqualToSuperview().inset(157)
+            $0.leading.equalToSuperview().inset(16)
             $0.height.equalTo(30)
             $0.width.equalTo(63)
         }
+        logoImageView.snp.makeConstraints {
+            $0.top.equalTo(loginLabel.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().inset(16)
+            $0.width.equalTo(134)
+            $0.height.equalTo(35)
+        }
         emailLabel.snp.makeConstraints {
-            $0.top.equalTo(loginLabel.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(40)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(107)
+            $0.left.equalToSuperview().inset(28)
         }
         emailTextField.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(32)
+            $0.left.right.equalToSuperview().inset(16)
             $0.top.equalTo(emailLabel.snp.bottom).offset(4)
-            $0.height.equalTo(40)
+            $0.height.equalTo(44)
         }
         passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(emailTextField.snp.bottom).offset(12)
-            $0.left.equalToSuperview().inset(40)
+            $0.top.equalTo(emailTextField.snp.bottom).offset(20)
+            $0.left.equalToSuperview().inset(28)
         }
         passwordTextField.snp.makeConstraints {
             $0.top.equalTo(passwordLabel.snp.bottom).offset(4)
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(40)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(44)
         }
         loginButton.snp.makeConstraints {
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(28)
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(36)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(41)
         }
         signUpButton.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(32)
-            $0.height.equalTo(36)
-            $0.bottom.lessThanOrEqualToSuperview().inset(130)
+            $0.left.right.equalToSuperview().inset(16)
+            $0.height.equalTo(41)
+            $0.bottom.lessThanOrEqualToSuperview().inset(34)
         }
     }
       
