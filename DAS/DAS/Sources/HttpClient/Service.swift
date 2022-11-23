@@ -36,8 +36,8 @@ final class Service {
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}
     }
-    func signup(_ email: String, _ name: String, _ password: String, _ grade: Int, _ classNum: Int, _ number: Int) -> Single<networkingResult> {
-        return provider.rx.request(.signUp(email: email, password: password, name: name, grade: grade, classNum: classNum, number: number))
+    func signup(_ email: String, _ name: String, _ password: String, _ grade: Int, _ classNum: Int, _ number: Int, _ sex: String) -> Single<networkingResult> {
+        return provider.rx.request(.signUp(email: email, password: password, name: name, grade: grade, classNum: classNum, number: number, sex:  sex))
             .filterSuccessfulStatusCodes()
             .map{ response -> networkingResult in
                 return .createOk
