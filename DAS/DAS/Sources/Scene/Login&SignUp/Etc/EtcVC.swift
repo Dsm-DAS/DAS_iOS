@@ -3,13 +3,14 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
-class EtcViewController: BaseVC {
+class EtcVC: BaseVC {
     var email: String = ""
     var code: String = ""
     var password: String = ""
     var grade = PublishRelay<Int>()
     var classNum = PublishRelay<Int>()
     var number = PublishRelay<Int>()
+    var sex = PublishRelay<String>()
     private var limitTime: Int = 300
     let viewModel = EtcViewModel()
     private let joinLabel = UILabel().then {
@@ -65,12 +66,13 @@ class EtcViewController: BaseVC {
     }
     override func bind() {
         let input = EtcViewModel.Input(emailText: email,
-                              codeText: code,
-                              passwordText: password,
-                              gradeText: grade,
-                              classNumText: classNum,
-                              numberText: number,
-                              signupBttonDidTap: signupButton.rx.tap.asSignal())
+                                       codeText: code,
+                                       passwordText: password,
+                                       gradeText: grade,
+                                       classNumText: classNum,
+                                       numberText: number,
+                                       sexText: sex,
+                                       signupBttonDidTap: signupButton.rx.tap.asSignal())
         let output = viewModel.transform(input)
         output.result.subscribe(onNext: {
             switch $0 {
@@ -93,6 +95,17 @@ class EtcViewController: BaseVC {
                     self.signupButton.backgroundColor = UIColor(named: "MainColor")
                 case false:
                     self.signupButton.backgroundColor = UIColor(named: "SignUpButton")
+                }
+            }).disposed(by: disposeBag)
+        sexSegmentedControl.rx.selectedSegmentIndex
+            .subscribe(onNext: { [self] in
+                switch $0 {
+                case 0:
+                    sex.accept("MALE")
+                case 1:
+                    sex.accept("FEMALE")
+                default:
+                    sex.accept("MALE")
                 }
             }).disposed(by: disposeBag)
     }
@@ -170,7 +183,7 @@ class EtcViewController: BaseVC {
         }
     }
 }
-extension EtcViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension EtcVC: UIPickerViewDelegate, UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 3
     }

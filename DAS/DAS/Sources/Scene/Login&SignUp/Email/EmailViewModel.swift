@@ -2,13 +2,10 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class LoginViewModel: ViewModel {
-    
-    
+class EmailViewModel: BaseVM {
     struct Input {
         let emailText: Driver<String>
-        let passwordText: Driver<String>
-        let loginButtonDidTap: Signal<Void>
+        let nextButtonDidTap: Signal<Void>
     }
     struct Output {
         let result : PublishRelay<Bool>
@@ -17,16 +14,15 @@ class LoginViewModel: ViewModel {
     
     func transform(_ input: Input) -> Output {
         let api = Service()
-        let info = Driver.combineLatest(input.emailText, input.passwordText)
         let result = PublishRelay<Bool>()
-        input.loginButtonDidTap
+        input.nextButtonDidTap
             .asObservable()
-            .withLatestFrom(info)
-            .flatMap{ email, password in
-                api.login(email, password)
+            .withLatestFrom(input.emailText)
+            .flatMap{ email in
+                api.sendEmailCode(email)
             }.subscribe(onNext: { res in
                 switch res {
-                case .ok:
+                case .createOk:
                     result.accept(true)
                 default:
                     result.accept(false)

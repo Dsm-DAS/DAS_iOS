@@ -2,10 +2,12 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class EmailViewModel: ViewModel {
+class EmailCodeViewModel: BaseVM {
+    var email: String = "sdfa"
     struct Input {
-        let emailText: Driver<String>
-        let nextButtonDidTap: Signal<Void>
+        let codeText: Driver<String>
+        let emailText: String
+        let checkButtonDidTap: Signal<Void>
     }
     struct Output {
         let result : PublishRelay<Bool>
@@ -15,14 +17,14 @@ class EmailViewModel: ViewModel {
     func transform(_ input: Input) -> Output {
         let api = Service()
         let result = PublishRelay<Bool>()
-        input.nextButtonDidTap
+        input.checkButtonDidTap
             .asObservable()
-            .withLatestFrom(input.emailText)
-            .flatMap{ email in
-                api.sendEmailCode(email)
+            .withLatestFrom(input.codeText)
+            .flatMap{ code in
+                api.codeCheck(input.emailText, code)
             }.subscribe(onNext: { res in
                 switch res {
-                case .createOk:
+                case .ok:
                     result.accept(true)
                 default:
                     result.accept(false)

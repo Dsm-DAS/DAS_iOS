@@ -3,7 +3,7 @@ import SnapKit
 import Then
 import RxCocoa
 import RxSwift
-class LoginViewController: BaseVC {
+class LoginVC: BaseVC {
     let viewModel = LoginViewModel()
     private let logoImageView = UIImageView().then {
         $0.image = UIImage(named:"Logo2")
@@ -86,7 +86,7 @@ class LoginViewController: BaseVC {
     private func touchSignupButton() {
         signUpButton.rx.tap
             .subscribe(onNext: {
-                let vc = UINavigationController(rootViewController: EmailViewController())
+                let vc = BaseNC(rootViewController: EmailVC())
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true)
             }).disposed(by: disposeBag)

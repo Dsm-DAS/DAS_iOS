@@ -3,7 +3,7 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
-class EmailCodeViewController: BaseVC {
+class EmailCodeVC: BaseVC {
     var email = ""
     private var limitTime: Int = 300
     let viewModel = EmailCodeViewModel()
@@ -58,7 +58,7 @@ class EmailCodeViewController: BaseVC {
             switch $0 {
             case true:
                 print("코드 맞음")
-                let vc = PasswordViewController()
+                let vc = PasswordVC()
                 vc.email = email
                 vc.code = codeTextField.text!
                 navigationController?.pushViewController(vc, animated: true)

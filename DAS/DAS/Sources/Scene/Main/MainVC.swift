@@ -2,31 +2,22 @@ import UIKit
 import SnapKit
 import Then
 
-class MainViewController: UIViewController {
+class MainVC: BaseVC {
     var images = ["ClubImage", "ClubImage", "ClubImage", "ClubImage", "ClubImage", "ClubImage"]
-    private let logoImageView = UIImageView().then {
-        $0.image = UIImage(named: "Logo")
-    }
-    private let noticeButton = UIBarButtonItem().then {
-        $0.image = UIImage(named: "Notice")
-        $0.action = #selector(noticeButtonDidTap)
-        $0.tintColor = .white
-    }
-
     private let clubScrollView = UIScrollView().then {
         $0.showsHorizontalScrollIndicator = false
         $0.isPagingEnabled = true
     }
-    
     private let clubContentView = UIView()
     
-    let clubNameLabel = UILabel().then {
+    private let clubNameLabel = UILabel().then {
         $0.text = "동아리 이름을 입력"
         $0.font = UIFont.boldSystemFont(ofSize: 24)
         $0.textColor = .white
     }
-    
-    private let pageControl = UIPageControl()
+    private let pageControl = UIPageControl().then {
+        $0.addTarget(MainVC.self, action: #selector(pageControlDidTap), for: .valueChanged)
+    }
 
     private let collectionScrollView = UIScrollView().then {
         $0.backgroundColor = .white
@@ -38,7 +29,6 @@ class MainViewController: UIViewController {
         $0.font = UIFont.boldSystemFont(ofSize: 24)
         $0.textColor = .black
     }
-    
     private let clubAllButton = UIButton(type: .system).then {
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         $0.setTitle("모두 보기", for: .normal)
@@ -79,67 +69,24 @@ class MainViewController: UIViewController {
         view.register(StudentCollectionViewCell.self, forCellWithReuseIdentifier: "StudentCollectionViewCell")
         return view
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        targets()
+
+    override func configureVC() {
+        self.view.backgroundColor = UIColor(named: "topViewBackGround")
         delegates()
-        tokenIsEmpty()
-    }
-    override func viewWillLayoutSubviews() {
-        addSubviews()
-        makeSubviewConstraints()
-        setNavigation()
-        addContentScrollView()
-        clubScrollView.delegate = self
-        collectionScrollView.delegate = self
-        addContentScrollView()
-        setPageControl()
-    }
-    @objc
-    private func noticeButtonDidTap() {
-        
     }
     @objc
     private func pageControlDidTap(_ sender: UIPageControl) {
         let current = sender.currentPage
         clubScrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
     }
-    private func targets(){
-        pageControl.addTarget(self, action: #selector(pageControlDidTap), for: .valueChanged)
-        noticeButton.target = self
-    }
     private func delegates() {
         clubCollectionView.delegate = self
         clubCollectionView.dataSource = self
         studentCollectionView.delegate = self
         studentCollectionView.dataSource = self
+        clubScrollView.delegate = self
+        collectionScrollView.delegate = self
     }
-    private func tokenIsEmpty(){
-        print(Token.accessToken as Any)
-        if Token.accessToken == nil {
-            let vc = LoginViewController()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
-        }
-    }
-    private func setNavigation() {
-        self.navigationItem.leftBarButtonItem = .init(customView: logoImageView)
-        self.navigationItem.rightBarButtonItem = noticeButton
-    }
-    
-    
-    // MARK: - Layout
-    private func addSubviews() {
-        [clubScrollView, clubNameLabel, pageControl, collectionScrollView].forEach { view.addSubview($0) }
-        self.clubScrollView.addSubview(clubContentView)
-        clubScrollView.contentSize = clubContentView.frame.size
-        [clubLabel, clubAllButton, clubCollectionView, studentLabel, studentAllButton, studentCollectionView].forEach {collectionContentView.addSubview($0)}
-        self.collectionScrollView.addSubview(collectionContentView)
-        collectionScrollView.contentSize = collectionContentView.frame.size
-    }
-
-    
     private func addContentScrollView() {
         for i in 0..<images.count {
             let imageView = UIImageView()
@@ -153,9 +100,32 @@ class MainViewController: UIViewController {
             }
         }
     }
-
-    private func makeSubviewConstraints() {
-        view.backgroundColor = .init(named: "topViewBackGround")
+    
+    // MARK: - Layout
+    override func addView() {
+        [
+            clubScrollView,
+            clubNameLabel,
+            pageControl,
+            collectionScrollView
+        ].forEach { view.addSubview($0) }
+        self.clubScrollView.addSubview(clubContentView)
+        clubScrollView.contentSize = clubContentView.frame.size
+        [
+            clubLabel,
+            clubAllButton,
+            clubCollectionView,
+            studentLabel,
+            studentAllButton,
+            studentCollectionView
+        ].forEach {collectionContentView.addSubview($0)}
+        self.collectionScrollView.addSubview(collectionContentView)
+        collectionScrollView.contentSize = collectionContentView.frame.size
+        addContentScrollView()
+        setPageControl()
+    }
+    
+    override func setLayout() {
         clubScrollView.snp.makeConstraints {
             $0.topMargin.equalToSuperview().inset(12)
             $0.left.right.equalToSuperview()
@@ -216,7 +186,7 @@ class MainViewController: UIViewController {
         }
     }
 }
-extension MainViewController : UIScrollViewDelegate {
+extension MainVC : UIScrollViewDelegate {
     private func setPageControl() {
         pageControl.numberOfPages = images.count
     }
@@ -233,7 +203,7 @@ extension MainViewController : UIScrollViewDelegate {
     }
 }
 
-extension MainViewController :UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainVC :UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == clubCollectionView {
             return 10

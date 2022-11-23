@@ -3,7 +3,7 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
-class EmailViewController: BaseVC {
+class EmailVC: BaseVC {
     let viewModel = EmailViewModel()
     private let joinLabel = UILabel().then {
         $0.text = "가입"
@@ -46,7 +46,7 @@ class EmailViewController: BaseVC {
             switch $0 {
             case true:
                 print("코드 보냄")
-                let vc = EmailCodeViewController()
+                let vc = EmailCodeVC()
                 vc.email = emailTextField.text!
                 print(vc.email)
                 navigationController?.pushViewController(vc, animated: true)

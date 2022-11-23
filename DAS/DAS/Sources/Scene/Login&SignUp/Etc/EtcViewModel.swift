@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class EtcViewModel: ViewModel {
+class EtcViewModel: BaseVM {
     struct Input {
         let emailText: String
         let codeText: String
@@ -10,6 +10,7 @@ class EtcViewModel: ViewModel {
         let gradeText: PublishRelay<Int>
         let classNumText: PublishRelay<Int>
         let numberText: PublishRelay<Int>
+        let sexText: PublishRelay<String>
         let signupBttonDidTap: Signal<Void>
     }
     struct Output {
@@ -20,12 +21,12 @@ class EtcViewModel: ViewModel {
     func transform(_ input: Input) -> Output {
         let api = Service()
         let result = PublishRelay<Bool>()
-        let info = PublishRelay.combineLatest(input.gradeText, input.classNumText, input.numberText)
+        let info = PublishRelay.combineLatest(input.gradeText, input.classNumText, input.numberText, input.sexText)
         input.signupBttonDidTap
             .asObservable()
             .withLatestFrom(info)
-            .flatMap{ grade, classNum, number in
-                api.signup(input.emailText, input.codeText, input.passwordText, grade, classNum, number)
+            .flatMap{ grade, classNum, number, sex in
+                api.signup(input.emailText, input.codeText, input.passwordText, grade, classNum, number, sex)
             }.subscribe(onNext: { res in
                 switch res {
                 case .createOk:

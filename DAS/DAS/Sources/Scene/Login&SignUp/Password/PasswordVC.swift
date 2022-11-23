@@ -4,7 +4,7 @@ import Then
 import RxSwift
 import RxCocoa
 
-class PasswordViewController: BaseVC {
+class PasswordVC: BaseVC {
     var email: String = ""
     var code: String = ""
     private var limitTime: Int = 300
@@ -61,7 +61,7 @@ class PasswordViewController: BaseVC {
             }).disposed(by: disposeBag)
         nextButton.rx.tap
             .subscribe(onNext: { [self] in
-                let vc = EtcViewController()
+                let vc = EtcVC()
                 vc.email = email
                 vc.code = code
                 vc.password = passwordTextField.text!
