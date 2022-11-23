@@ -5,7 +5,7 @@ let MY = MoyaProvider<API>()
 
 enum API {
     case login(email: String, password: String)
-    case signUp(email: String, password: String, name: String, grade: Int, classNum: Int, number: Int)
+    case signUp(email: String, password: String, name: String, grade: Int, classNum: Int, number: Int, sex: String)
     case sentEmailCode(email : String)
     case codecheck(email : String, emailCode : String)
 }
@@ -48,7 +48,7 @@ extension API: TargetType {
                                         ],
                                       encoding: JSONEncoding.default)
             
-        case .signUp(let email, let password, let name, let grade, let classNum, let number):
+        case .signUp(let email, let password, let name, let grade, let classNum, let number, let sex):
             return .requestParameters(parameters:
                                         [
                                             "email": email,
@@ -56,7 +56,9 @@ extension API: TargetType {
                                             "name": name,
                                             "grade": grade,
                                             "class_num": classNum,
-                                            "number": number],
+                                            "number": number,
+                                            "sex": sex
+                                        ],
                                       encoding: JSONEncoding.prettyPrinted)
         case .sentEmailCode(let email):
             return .requestParameters(parameters:
