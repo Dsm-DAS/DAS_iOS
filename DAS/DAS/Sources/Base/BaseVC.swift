@@ -4,7 +4,6 @@ class BaseVC: UIViewController {
     let bound = UIScreen.main.bounds
     var disposeBag = DisposeBag()
 
-    @available(*, unavailable)
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
