@@ -5,14 +5,14 @@ let MY = MoyaProvider<API>()
 
 enum API {
     case login(email: String, password: String)
-    case signUp(email: String, password: String, name: String, grade: Int, classNum: Int, number: Int)
+    case signUp(email: String, password: String, name: String, grade: Int, classNum: Int, number: Int, sex: String)
     case sentEmailCode(email : String)
     case codecheck(email : String, emailCode : String)
 }
 
 extension API: TargetType {
     var baseURL: URL {
-        return URL(string: "http://192.168.223.97:8080")!
+        return URL(string: "http://52.79.150.23:8080")!
     }
     
     var path: String {
@@ -38,23 +38,41 @@ extension API: TargetType {
         }
     }
     
-    //["email":"\(email)", "password":"\(password)"]
     var task: Task {
         switch self {
         case .login(let email, let password):
             return .requestParameters(parameters:
-                [
-                    "email": email,
-                    "password": password
-                ],
-              encoding: JSONEncoding.default)
+                                        [
+                                            "email": email,
+                                            "password": password
+                                        ],
+                                      encoding: JSONEncoding.default)
             
-        case .signUp(let email, let password, let name, let grade, let classNum, let number):
-            return .requestJSONEncodable(["email":"\(email)", "password":"\(password)", "name":"\(name)","grade": "\(grade)","class_num":"\(classNum)","number":"\(number)"])
+        case .signUp(let email, let password, let name, let grade, let classNum, let number, let sex):
+            return .requestParameters(parameters:
+                                        [
+                                            "email": email,
+                                            "password": password,
+                                            "name": name,
+                                            "grade": grade,
+                                            "class_num": classNum,
+                                            "number": number,
+                                            "sex": sex
+                                        ],
+                                      encoding: JSONEncoding.prettyPrinted)
         case .sentEmailCode(let email):
-            return .requestJSONEncodable(["email":"\(email)"])
+            return .requestParameters(parameters:
+                                        [
+                                            "email": email
+                                        ],
+                                      encoding: JSONEncoding.prettyPrinted)
         case .codecheck(let email, let emailCode):
-            return .requestJSONEncodable(["email":email,"code":emailCode])
+            return .requestParameters(parameters:
+                                        [
+                                            "email": email,
+                                            "code": emailCode
+                                        ],
+                                      encoding: JSONEncoding.prettyPrinted)
         }
     }
     
