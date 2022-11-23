@@ -6,7 +6,7 @@ import RxMoya
 
 final class Service {
     
-    let provider = MoyaProvider<API>()
+    let provider = MoyaProvider<API>(plugins: [MoyaLoggingPlugin()])
     
     func login(_ email: String, _ password: String) -> Single<networkingResult> {
         return provider.rx.request(.login(email: email, password: password))
@@ -32,7 +32,7 @@ final class Service {
         return provider.rx.request(.codecheck(email: email, emailCode: checkCode))
             .filterSuccessfulStatusCodes()
             .map{ response -> networkingResult in
-                return .createOk
+                return .ok
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}
     }
