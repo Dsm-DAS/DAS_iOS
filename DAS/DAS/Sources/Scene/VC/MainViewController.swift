@@ -116,8 +116,7 @@ class MainViewController: UIViewController {
         studentCollectionView.dataSource = self
     }
     private func tokenIsEmpty(){
-        print(Token.accessToken)
-        Token.accessToken = nil
+        print(Token.accessToken as Any)
         if Token.accessToken == nil {
             let vc = LoginViewController()
             vc.modalPresentationStyle = .fullScreen
