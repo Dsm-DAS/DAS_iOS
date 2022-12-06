@@ -18,7 +18,7 @@
 		67420FD028D213D200C393B6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCF28D213D200C393B6 /* Then */; };
 		67420FD328D2146A00C393B6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FD228D2146A00C393B6 /* Moya */; };
 		674EAC9928D4804C004D8465 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9828D4804C004D8465 /* MainVC.swift */; };
-		674EAC9B28D480B5004D8465 /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9A28D480B5004D8465 /* ListVC.swift */; };
+		674EAC9B28D480B5004D8465 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9A28D480B5004D8465 /* NoticeListView.swift */; };
 		674EAC9D28D480DA004D8465 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9C28D480DA004D8465 /* SearchVC.swift */; };
 		674EAC9F28D480F6004D8465 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EAC9E28D480F6004D8465 /* MenuVC.swift */; };
 		6751269C29027B5700261437 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6751269B29027B5700261437 /* BaseVM.swift */; };
@@ -45,6 +45,12 @@
 		67CE0C3328DAA56500A4C7C4 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3228DAA56500A4C7C4 /* LoginVC.swift */; };
 		67CE0C3528DAA57900A4C7C4 /* EmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3428DAA57900A4C7C4 /* EmailVC.swift */; };
 		67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */; };
+		EBCDD49D292E14CB0033494C /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD49C292E14CB0033494C /* NoticeTableViewCell.swift */; };
+		EBCDD49F293395DD0033494C /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD49E293395DD0033494C /* ListVC.swift */; };
+		EBCDD4A12935EA5E0033494C /* ClubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A02935EA5E0033494C /* ClubTableViewCell.swift */; };
+		EBCDD4A72935F1E30033494C /* ClubListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A62935F1E30033494C /* ClubListView.swift */; };
+		EBCDD4A92935F2030033494C /* StudentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A82935F2030033494C /* StudentListView.swift */; };
+		EBCDD4AB293CD5A80033494C /* StudentFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +63,7 @@
 		670632E62903FAFB00A4C6CA /* EtcViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtcViewModel.swift; sourceTree = "<group>"; };
 		67297CBD292A2A0C00A41985 /* MoyaLoggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggingPlugin.swift; sourceTree = "<group>"; };
 		674EAC9828D4804C004D8465 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		674EAC9A28D480B5004D8465 /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
+		674EAC9A28D480B5004D8465 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
 		674EAC9C28D480DA004D8465 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		674EAC9E28D480F6004D8465 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		6751269B29027B5700261437 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
@@ -82,6 +88,12 @@
 		67CE0C3228DAA56500A4C7C4 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		67CE0C3428DAA57900A4C7C4 /* EmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVC.swift; sourceTree = "<group>"; };
 		67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+padding.swift"; sourceTree = "<group>"; };
+		EBCDD49C292E14CB0033494C /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
+		EBCDD49E293395DD0033494C /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
+		EBCDD4A02935EA5E0033494C /* ClubTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubTableViewCell.swift; sourceTree = "<group>"; };
+		EBCDD4A62935F1E30033494C /* ClubListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListView.swift; sourceTree = "<group>"; };
+		EBCDD4A82935F2030033494C /* StudentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListView.swift; sourceTree = "<group>"; };
+		EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +228,10 @@
 		677F464C292DC64C00349196 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				674EAC9A28D480B5004D8465 /* ListVC.swift */,
+				EBCDD49E293395DD0033494C /* ListVC.swift */,
+				674EAC9A28D480B5004D8465 /* NoticeListView.swift */,
+				EBCDD4A62935F1E30033494C /* ClubListView.swift */,
+				EBCDD4A82935F2030033494C /* StudentListView.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -305,6 +320,9 @@
 			children = (
 				67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */,
 				67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */,
+				EBCDD49C292E14CB0033494C /* NoticeTableViewCell.swift */,
+				EBCDD4A02935EA5E0033494C /* ClubTableViewCell.swift */,
+				EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -446,20 +464,26 @@
 				67C5EFDE292915050047CF18 /* EtcVC.swift in Sources */,
 				67CE0C2E28DAA49B00A4C7C4 /* Header.swift in Sources */,
 				670487BF28D209AE0052D49E /* SceneDelegate.swift in Sources */,
+				EBCDD4A72935F1E30033494C /* ClubListView.swift in Sources */,
 				6785B0EF2903D0BE0089E719 /* Service.swift in Sources */,
+				EBCDD49F293395DD0033494C /* ListVC.swift in Sources */,
 				675126A029027D7400261437 /* LoginViewModel.swift in Sources */,
-				674EAC9B28D480B5004D8465 /* ListVC.swift in Sources */,
+				674EAC9B28D480B5004D8465 /* NoticeListView.swift in Sources */,
 				67C12FBC28D8392E00C10820 /* StudentCollectionViewCell.swift in Sources */,
 				67CE0C2C28DAA47E00A4C7C4 /* Client.swift in Sources */,
 				6785B0F12903D4B40089E719 /* ServiceType.swift in Sources */,
 				67CE0C3528DAA57900A4C7C4 /* EmailVC.swift in Sources */,
+				EBCDD4A12935EA5E0033494C /* ClubTableViewCell.swift in Sources */,
 				677F4650292DC6AA00349196 /* NoticeVC.swift in Sources */,
 				677F4652292DCE9C00349196 /* BaseNC.swift in Sources */,
+				EBCDD4A92935F2030033494C /* StudentListView.swift in Sources */,
 				67C5EFDC292914E50047CF18 /* PasswordVC.swift in Sources */,
 				674EAC9928D4804C004D8465 /* MainVC.swift in Sources */,
+				EBCDD4AB293CD5A80033494C /* StudentFilterCollectionViewCell.swift in Sources */,
 				67A217A1292C5A0C004EB82E /* EmailCodeViewModel.swift in Sources */,
 				675126A22902847300261437 /* UIButton+setBackgroundColor.swift in Sources */,
 				6785B0FA2903E3510089E719 /* BaseVC.swift in Sources */,
+				EBCDD49D292E14CB0033494C /* NoticeTableViewCell.swift in Sources */,
 				670632E72903FAFB00A4C6CA /* EtcViewModel.swift in Sources */,
 				67C5EFDA292914D00047CF18 /* EmailCodeVC.swift in Sources */,
 				67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */,
