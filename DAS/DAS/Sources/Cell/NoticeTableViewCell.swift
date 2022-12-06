@@ -21,9 +21,6 @@ class NoticeTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-    
-    
-    
     let titleLabel = UILabel().then {
         $0.text = "어쩌구 저쩌구 모집합니다"
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -52,8 +49,12 @@ class NoticeTableViewCell: UITableViewCell {
     
     
      func addSubview() {
-        
-         [titleLabel,subTitleLabel,clubImageView,BottomLineView].forEach {self.addSubview($0)}
+         [
+            titleLabel,
+            subTitleLabel,
+            clubImageView,
+            BottomLineView
+         ].forEach {self.addSubview($0)}
     }
     
     func makeLayoutConstraint() {
