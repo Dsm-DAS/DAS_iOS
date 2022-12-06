@@ -51,6 +51,7 @@
 		EBCDD4A72935F1E30033494C /* ClubListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A62935F1E30033494C /* ClubListView.swift */; };
 		EBCDD4A92935F2030033494C /* StudentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A82935F2030033494C /* StudentListView.swift */; };
 		EBCDD4AB293CD5A80033494C /* StudentFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */; };
+		EBCDD4AD293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		EBCDD4A62935F1E30033494C /* ClubListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListView.swift; sourceTree = "<group>"; };
 		EBCDD4A82935F2030033494C /* StudentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListView.swift; sourceTree = "<group>"; };
 		EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 				674EAC9A28D480B5004D8465 /* NoticeListView.swift */,
 				EBCDD4A62935F1E30033494C /* ClubListView.swift */,
 				EBCDD4A82935F2030033494C /* StudentListView.swift */,
+				EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				EBCDD4A12935EA5E0033494C /* ClubTableViewCell.swift in Sources */,
 				677F4650292DC6AA00349196 /* NoticeVC.swift in Sources */,
 				677F4652292DCE9C00349196 /* BaseNC.swift in Sources */,
+				EBCDD4AD293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				EBCDD4A92935F2030033494C /* StudentListView.swift in Sources */,
 				67C5EFDC292914E50047CF18 /* PasswordVC.swift in Sources */,
 				674EAC9928D4804C004D8465 /* MainVC.swift in Sources */,
