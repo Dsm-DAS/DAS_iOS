@@ -17,7 +17,6 @@
 		67420FCD28D213A500C393B6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCC28D213A500C393B6 /* SnapKit */; };
 		67420FD028D213D200C393B6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FCF28D213D200C393B6 /* Then */; };
 		67420FD328D2146A00C393B6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 67420FD228D2146A00C393B6 /* Moya */; };
-		6747633C293CD53500038AFF /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747633B293CD53500038AFF /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		6747633E293D63D100038AFF /* MyClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747633D293D63D100038AFF /* MyClubView.swift */; };
 		67476340293D64A800038AFF /* MyClubCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747633F293D64A800038AFF /* MyClubCollectionViewCell.swift */; };
 		67476347293DC2CD00038AFF /* ExpyTableView in Frameworks */ = {isa = PBXBuildFile; productRef = 67476346293DC2CD00038AFF /* ExpyTableView */; };
@@ -59,7 +58,12 @@
 		67CE0C3328DAA56500A4C7C4 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3228DAA56500A4C7C4 /* LoginVC.swift */; };
 		67CE0C3528DAA57900A4C7C4 /* EmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3428DAA57900A4C7C4 /* EmailVC.swift */; };
 		67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */; };
-<<<<<<< Updated upstream
+		67FEFA322940C3AE00D72DD1 /* TableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA312940C3AE00D72DD1 /* TableState.swift */; };
+		67FEFA362940C74F00D72DD1 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA352940C74F00D72DD1 /* MenuViewModel.swift */; };
+		67FEFA382940CABA00D72DD1 /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA372940CABA00D72DD1 /* MyPageModel.swift */; };
+		67FEFA3B2940F5B800D72DD1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 67FEFA3A2940F5B800D72DD1 /* Kingfisher */; };
+		67FEFA3E2940FBD800D72DD1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA3D2940FBD800D72DD1 /* MainViewModel.swift */; };
+		67FEFA4229410C3700D72DD1 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA4129410C3700D72DD1 /* MyPageViewModel.swift */; };
 		EBCDD49D292E14CB0033494C /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD49C292E14CB0033494C /* NoticeTableViewCell.swift */; };
 		EBCDD49F293395DD0033494C /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD49E293395DD0033494C /* ListVC.swift */; };
 		EBCDD4A12935EA5E0033494C /* ClubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A02935EA5E0033494C /* ClubTableViewCell.swift */; };
@@ -67,14 +71,6 @@
 		EBCDD4A92935F2030033494C /* StudentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4A82935F2030033494C /* StudentListView.swift */; };
 		EBCDD4AB293CD5A80033494C /* StudentFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */; };
 		EBCDD4AD293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */; };
-=======
-		67FEFA322940C3AE00D72DD1 /* TableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA312940C3AE00D72DD1 /* TableState.swift */; };
-		67FEFA362940C74F00D72DD1 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA352940C74F00D72DD1 /* MenuViewModel.swift */; };
-		67FEFA382940CABA00D72DD1 /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA372940CABA00D72DD1 /* MyPageModel.swift */; };
-		67FEFA3B2940F5B800D72DD1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 67FEFA3A2940F5B800D72DD1 /* Kingfisher */; };
-		67FEFA3E2940FBD800D72DD1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA3D2940FBD800D72DD1 /* MainViewModel.swift */; };
-		67FEFA4229410C3700D72DD1 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FEFA4129410C3700D72DD1 /* MyPageViewModel.swift */; };
->>>>>>> Stashed changes
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +82,6 @@
 		670487C828D209AF0052D49E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		670632E62903FAFB00A4C6CA /* EtcViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtcViewModel.swift; sourceTree = "<group>"; };
 		67297CBD292A2A0C00A41985 /* MoyaLoggingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggingPlugin.swift; sourceTree = "<group>"; };
-		6747633B293CD53500038AFF /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		6747633D293D63D100038AFF /* MyClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubView.swift; sourceTree = "<group>"; };
 		6747633F293D64A800038AFF /* MyClubCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubCollectionViewCell.swift; sourceTree = "<group>"; };
 		6747634B293F1C4E00038AFF /* LookUpChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpChartsView.swift; sourceTree = "<group>"; };
@@ -124,7 +119,11 @@
 		67CE0C3228DAA56500A4C7C4 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		67CE0C3428DAA57900A4C7C4 /* EmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVC.swift; sourceTree = "<group>"; };
 		67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+padding.swift"; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
+		67FEFA312940C3AE00D72DD1 /* TableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableState.swift; sourceTree = "<group>"; };
+		67FEFA352940C74F00D72DD1 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		67FEFA372940CABA00D72DD1 /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
+		67FEFA3D2940FBD800D72DD1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		67FEFA4129410C3700D72DD1 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		EBCDD49C292E14CB0033494C /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
 		EBCDD49E293395DD0033494C /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
 		EBCDD4A02935EA5E0033494C /* ClubTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubTableViewCell.swift; sourceTree = "<group>"; };
@@ -132,13 +131,6 @@
 		EBCDD4A82935F2030033494C /* StudentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListView.swift; sourceTree = "<group>"; };
 		EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-=======
-		67FEFA312940C3AE00D72DD1 /* TableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableState.swift; sourceTree = "<group>"; };
-		67FEFA352940C74F00D72DD1 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
-		67FEFA372940CABA00D72DD1 /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
-		67FEFA3D2940FBD800D72DD1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		67FEFA4129410C3700D72DD1 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
->>>>>>> Stashed changes
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +199,7 @@
 		6751269D29027B6500261437 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */,
 				67CE0C3628DAADB600A4C7C4 /* UITextFiled+padding.swift */,
 				675126A12902847300261437 /* UIButton+setBackgroundColor.swift */,
 			);
@@ -282,7 +275,6 @@
 				674EAC9A28D480B5004D8465 /* NoticeListView.swift */,
 				EBCDD4A62935F1E30033494C /* ClubListView.swift */,
 				EBCDD4A82935F2030033494C /* StudentListView.swift */,
-				EBCDD4AC293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -367,7 +359,6 @@
 				675C310D2935F5AB006DAC46 /* IntroduceView.swift */,
 				67B048682939D65E00BB9158 /* SkillStackView.swift */,
 				6747633D293D63D100038AFF /* MyClubView.swift */,
-				6747633B293CD53500038AFF /* LeftAlignedCollectionViewFlowLayout.swift */,
 				6747634B293F1C4E00038AFF /* LookUpChartsView.swift */,
 				67FEFA312940C3AE00D72DD1 /* TableState.swift */,
 			);
@@ -388,15 +379,12 @@
 			children = (
 				67C12FB928D838A600C10820 /* ClubCollectionViewCell.swift */,
 				67C12FBB28D8392E00C10820 /* StudentCollectionViewCell.swift */,
-<<<<<<< Updated upstream
 				EBCDD49C292E14CB0033494C /* NoticeTableViewCell.swift */,
 				EBCDD4A02935EA5E0033494C /* ClubTableViewCell.swift */,
 				EBCDD4AA293CD5A80033494C /* StudentFilterCollectionViewCell.swift */,
-=======
 				675C310529345E7A006DAC46 /* EditTableViewCell.swift */,
 				67B0486A2939E23600BB9158 /* SkillStackCollectionViewCell.swift */,
 				6747633F293D64A800038AFF /* MyClubCollectionViewCell.swift */,
->>>>>>> Stashed changes
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -586,15 +574,12 @@
 				6785B0F12903D4B40089E719 /* ServiceType.swift in Sources */,
 				677F4654292E0FF800349196 /* ClubVC.swift in Sources */,
 				67CE0C3528DAA57900A4C7C4 /* EmailVC.swift in Sources */,
-<<<<<<< Updated upstream
 				EBCDD4A12935EA5E0033494C /* ClubTableViewCell.swift in Sources */,
-=======
 				677F46692932002100349196 /* ProFilButton.swift in Sources */,
 				67B048692939D65E00BB9158 /* SkillStackView.swift in Sources */,
 				6747633E293D63D100038AFF /* MyClubView.swift in Sources */,
 				67FEFA362940C74F00D72DD1 /* MenuViewModel.swift in Sources */,
 				6747634C293F1C4E00038AFF /* LookUpChartsView.swift in Sources */,
->>>>>>> Stashed changes
 				677F4650292DC6AA00349196 /* NoticeVC.swift in Sources */,
 				677F4652292DCE9C00349196 /* BaseNC.swift in Sources */,
 				EBCDD4AD293F4FD70033494C /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
@@ -606,17 +591,13 @@
 				675126A22902847300261437 /* UIButton+setBackgroundColor.swift in Sources */,
 				67FEFA382940CABA00D72DD1 /* MyPageModel.swift in Sources */,
 				6785B0FA2903E3510089E719 /* BaseVC.swift in Sources */,
-<<<<<<< Updated upstream
 				EBCDD49D292E14CB0033494C /* NoticeTableViewCell.swift in Sources */,
-=======
 				67B0486B2939E23600BB9158 /* SkillStackCollectionViewCell.swift in Sources */,
 				67476340293D64A800038AFF /* MyClubCollectionViewCell.swift in Sources */,
->>>>>>> Stashed changes
 				670632E72903FAFB00A4C6CA /* EtcViewModel.swift in Sources */,
 				675C310A2935D856006DAC46 /* MyPageVC.swift in Sources */,
 				67C5EFDA292914D00047CF18 /* EmailCodeVC.swift in Sources */,
 				67CE0C3728DAADB600A4C7C4 /* UITextFiled+padding.swift in Sources */,
-				6747633C293CD53500038AFF /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				67FEFA322940C3AE00D72DD1 /* TableState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
