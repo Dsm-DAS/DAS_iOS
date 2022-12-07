@@ -7,11 +7,12 @@ class TabBarVC: UITabBarController {
         super.viewWillAppear(animated)
         setUpTabBarLayout()
         setUpTabBarItem()
-        print(Token.accessToken as Any)
+    }
+    override func viewDidAppear(_ animated: Bool) {
         if Token.accessToken == nil {
-//            let vc = LoginVC()
-//            vc.modalPresentationStyle = .fullScreen
-//            self.present(vc, animated: true)
+            let vc = LoginVC()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
         }
     }
 
@@ -24,8 +25,8 @@ class TabBarVC: UITabBarController {
     }
 
     func setUpTabBarItem() {
-        let mainVc = MainVC()
-        mainVc.tabBarItem = UITabBarItem(
+        let mainVC = BaseNC(rootViewController: MainVC())
+        mainVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(named: "Main"),
             selectedImage: UIImage(named: "Main")
@@ -48,18 +49,18 @@ class TabBarVC: UITabBarController {
             image: UIImage(named: "Notice"),
             selectedImage: UIImage(named: "Notice")
         )
-        let menuVC = MenuVC()
+        let menuVC = BaseNC(rootViewController: MenuVC())
         menuVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(named: "Menu"),
             selectedImage: UIImage(named: "Menu")
         )
-        viewControllers = [
-            mainVc,
+        self.setViewControllers([
+            mainVC,
             listVC,
             searchVC,
             noticeVC,
             menuVC
-        ]
+        ], animated: true)
     }
 }
