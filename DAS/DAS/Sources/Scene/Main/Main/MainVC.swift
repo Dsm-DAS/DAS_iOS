@@ -1,9 +1,14 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
+
 
 class MainVC: BaseVC {
     var images = ["ClubImage", "ClubImage", "ClubImage", "ClubImage", "ClubImage", "ClubImage"]
+    let viewModel = MainViewModel()
+    private let refresh = PublishRelay<Void>()
     private let clubScrollView = UIScrollView().then {
         $0.showsHorizontalScrollIndicator = false
         $0.isPagingEnabled = true
@@ -55,6 +60,7 @@ class MainVC: BaseVC {
         layout.itemSize = CGSize(width: 312, height: 126)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ClubCollectionViewCell.self, forCellWithReuseIdentifier: "ClubCollectionViewCell")
+        view.showsHorizontalScrollIndicator = false
         return view
     }()
     
@@ -67,6 +73,7 @@ class MainVC: BaseVC {
         layout.itemSize = CGSize(width: 170, height: 60)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(StudentCollectionViewCell.self, forCellWithReuseIdentifier: "StudentCollectionViewCell")
+        view.showsVerticalScrollIndicator = false
         return view
     }()
 
@@ -74,6 +81,24 @@ class MainVC: BaseVC {
         self.view.backgroundColor = UIColor(named: "topViewBackGround")
         delegates()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        refresh.accept(())
+    }
+//    override func bind() {
+//        let input = MainViewModel.Input(refreshToken: refresh.asSignal())
+//        let output = viewModel.transform(input)
+//        output.result.subscribe(onNext: {
+//            switch $0 {
+//            case true:
+//                return
+//            default:
+//                let vc = LoginVC()
+//                vc.modalPresentationStyle = .fullScreen
+//                self.present(vc, animated: true)
+//            }
+//        }).disposed(by: disposeBag)
+//    }
     @objc
     private func pageControlDidTap(_ sender: UIPageControl) {
         let current = sender.currentPage
@@ -168,10 +193,10 @@ class MainVC: BaseVC {
             $0.top.equalTo(clubLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(268)
-        }
+        }   
         studentLabel.snp.makeConstraints {
             $0.top.equalTo(clubCollectionView.snp.bottom).offset(40)
-            $0.left.equalToSuperview().inset(21)
+            $0.left.equalToSuperview().inset(22)
             $0.height.equalTo(30)
         }
         studentAllButton.snp.makeConstraints {
@@ -181,7 +206,8 @@ class MainVC: BaseVC {
         }
         studentCollectionView.snp.makeConstraints {
             $0.top.equalTo(studentLabel.snp.bottom).offset(8)
-            $0.left.right.equalToSuperview().inset(16)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.9)
             $0.height.equalTo(380)
         }
     }
@@ -208,7 +234,7 @@ extension MainVC :UICollectionViewDelegate, UICollectionViewDataSource {
         if collectionView == clubCollectionView {
             return 10
         } else if collectionView == studentCollectionView {
-            return 10
+            return 20
         } else {
             return 0
         }
@@ -230,5 +256,13 @@ extension MainVC :UICollectionViewDelegate, UICollectionViewDataSource {
         }
 
     }
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case clubCollectionView:
+            let vc = ClubVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            print("nil")
+        }
+    }
 }

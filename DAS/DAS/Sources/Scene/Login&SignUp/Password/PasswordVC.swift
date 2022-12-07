@@ -36,6 +36,9 @@ class PasswordVC: BaseVC {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(named: "SignUpButtonColor")?.cgColor
     }
+    private let passwordStateImageView = UIImageView().then {
+        $0.image = UIImage(named: "CheckSign.x")
+    }
     private let passwordImageView = UIImageView().then {
         $0.image = UIImage(named: "KeyImage")
     }
@@ -46,17 +49,25 @@ class PasswordVC: BaseVC {
         $0.layer.cornerRadius = 8
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     }
+    private func validpassword(mypassword: String) -> Bool {
+            let passwordreg =  ("(?=.*[0-9])(?=.*[a-zA-Z]).{8,20}$")
+            let passwordtesting = NSPredicate(format: "SELF MATCHES %@", passwordreg)
+            return passwordtesting.evaluate(with: mypassword)
+    }
     override func configureVC() {
         self.navigationItem.hidesBackButton = true
         passwordTextField.rx.text.orEmpty
-            .map { !$0.isEmpty }
-            .subscribe(onNext: {
+            .filter { !$0.isEmpty }
+            .map {self.validpassword(mypassword: $0)}
+            .subscribe(onNext: { [self] in
                 self.nextButton.isEnabled = $0
                 switch $0{
                 case true:
-                    self.nextButton.backgroundColor = UIColor(named: "MainColor")
+                    passwordStateImageView.image = UIImage(named: "CheckSign.o")
+                    nextButton.backgroundColor = UIColor(named: "MainColor")
                 case false:
-                    self.nextButton.backgroundColor = UIColor(named: "SignUpButton")
+                    passwordStateImageView.image = UIImage(named: "CheckSign.x")
+                    nextButton.backgroundColor = UIColor(named: "SignUpButton")
                 }
             }).disposed(by: disposeBag)
         nextButton.rx.tap
@@ -78,6 +89,7 @@ class PasswordVC: BaseVC {
             passwordImageView,
             nextButton
         ].forEach { view.addSubview($0) }
+        passwordTextField.addSubview(passwordStateImageView)
     }
     override func setLayout() {
         joinLabel.snp.makeConstraints {
@@ -106,6 +118,11 @@ class PasswordVC: BaseVC {
             $0.top.equalTo(passwordLabel.snp.bottom).offset(4)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(44)
+        }
+        passwordStateImageView.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(12)
         }
         passwordImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()

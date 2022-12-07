@@ -102,10 +102,8 @@ class EtcVC: BaseVC {
                 switch $0 {
                 case 0:
                     sex.accept("MALE")
-                case 1:
-                    sex.accept("FEMALE")
                 default:
-                    sex.accept("MALE")
+                    sex.accept("FEMALE")
                 }
             }).disposed(by: disposeBag)
     }
@@ -225,13 +223,10 @@ extension EtcVC: UIPickerViewDelegate, UIPickerViewDataSource {
         switch component {
         case 0:
             grade.accept(row + 1)
-            print("학년: \(row + 1)")
         case 1:
             classNum.accept(row + 1)
-            print("반: \(row + 1)")
         case 2:
             number.accept(row + 1)
-            print("번호: \(row + 1)")
         default:
             print("default")
         }
