@@ -8,6 +8,8 @@ enum API {
     case signUp(email: String, password: String, name: String, grade: Int, classNum: Int, number: Int, sex: String)
     case sentEmailCode(email : String)
     case codecheck(email : String, emailCode : String)
+    case loadMyPage
+    case refreshToken
 }
 
 extension API: TargetType {
@@ -21,10 +23,14 @@ extension API: TargetType {
             return "/user/token"
         case .signUp:
             return "/user/signup"
-        case.sentEmailCode:
+        case .sentEmailCode:
             return "/user/email"
-        case.codecheck:
+        case .codecheck:
             return "/user/email"
+        case .loadMyPage:
+            return "/user/my-page"
+        case .refreshToken:
+            return "/user/token"
         }
         
     }
@@ -35,6 +41,10 @@ extension API: TargetType {
             return .post
         case .codecheck :
             return .put
+        case .loadMyPage:
+            return .get
+        case .refreshToken:
+            return .patch
         }
     }
     
@@ -73,6 +83,8 @@ extension API: TargetType {
                                             "code": emailCode
                                         ],
                                       encoding: JSONEncoding.prettyPrinted)
+        default:
+            return .requestPlain
         }
     }
     
@@ -80,6 +92,10 @@ extension API: TargetType {
         switch self {
         case .login, .signUp, .sentEmailCode, .codecheck:
             return Header.tokenIsEmpty.header()
+        case .refreshToken:
+            return Header.refreshToken.header()
+        case .loadMyPage:
+            return Header.accessToken.header()
         }
     }
 }
