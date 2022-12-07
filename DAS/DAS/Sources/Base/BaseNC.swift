@@ -20,5 +20,23 @@ class BaseNC: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBarAppearance()
+    }
+    func setNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        let appearance2 = UINavigationBarAppearance()
+        navigationBar.tintColor = UIColor(named: "TextColor")
+        appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
+        appearance2.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
+        appearance.backgroundColor = .white
+
+        appearance.configureWithTransparentBackground()
+        appearance2.configureWithDefaultBackground()
+        appearance.backButtonAppearance = backButtonAppearance
+        appearance2.backButtonAppearance = backButtonAppearance
+        navigationBar.standardAppearance = appearance2
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
+        navigationBar.scrollEdgeAppearance = appearance
+        self.navigationController?.navigationBar.backItem?.title = nil
     }
 }
