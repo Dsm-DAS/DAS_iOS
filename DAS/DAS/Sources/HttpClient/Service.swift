@@ -19,6 +19,17 @@ final class Service {
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}
     }
+    func refreshToken() -> Single<networkingResult> {
+        return provider.rx.request(.refreshToken)
+            .filterSuccessfulStatusCodes()
+            .map(TokenModel.self)
+            .map{ response -> networkingResult in
+                Token.accessToken = response.access_token
+                Token.refreshToken = response.refresh_token
+                return .ok
+            }
+            .catch {[unowned self] in return .just(setNetworkError($0))}
+    }
     func sendEmailCode(_ email: String) -> Single<networkingResult> {
         return provider.rx.request(.sentEmailCode(email: email))
             .filterSuccessfulStatusCodes()
@@ -44,8 +55,16 @@ final class Service {
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}
     }
-    
-
+    func loadMyPage() -> Single<(MyPageModel?, networkingResult)> {
+        return provider.rx.request(.loadMyPage)
+            .filterSuccessfulStatusCodes()
+            .map(MyPageModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
     
     func setNetworkError(_ error: Error) -> networkingResult {
             print(error)
