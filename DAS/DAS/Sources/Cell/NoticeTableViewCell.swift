@@ -23,6 +23,8 @@ class NoticeTableViewCell: UITableViewCell {
     }
     let clubImageView = UIImageView().then {
         $0.image = UIImage(named: "ClubImageMini")
+        $0.layer.cornerRadius = 16
+        $0.clipsToBounds = true
     }
     private let BottomLineView = UIView().then {
         $0.backgroundColor = UIColor(named: "PickerLine")

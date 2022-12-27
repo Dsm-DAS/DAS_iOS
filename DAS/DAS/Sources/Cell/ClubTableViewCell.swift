@@ -17,6 +17,8 @@ class ClubTableViewCell: UITableViewCell {
     }
     let clubImageView = UIImageView().then {
         $0.image = UIImage(named: "ClubImageMini")
+        $0.layer.cornerRadius = 16
+        $0.clipsToBounds = true
     }
     let clubNameLabel = UILabel().then {
         $0.text = "동아리이름"
