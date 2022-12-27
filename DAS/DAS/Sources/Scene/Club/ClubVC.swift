@@ -17,6 +17,8 @@ class ClubVC: BaseVC {
     }
     private let clubImageView = UIImageView().then {
         $0.image = UIImage(named: "ClubImageMini")
+        $0.layer.cornerRadius = 16
+        $0.clipsToBounds = true
     }
     private let titleLabel = UILabel().then {
         $0.text = "멋진로고동아리"
