@@ -5,7 +5,7 @@ import RxSwift
 import RxCocoa
 class EtcVC: BaseVC {
     var email: String = ""
-    var code: String = ""
+    var name = PublishRelay<String>()
     var password: String = ""
     var grade = PublishRelay<Int>()
     var classNum = PublishRelay<Int>()
@@ -59,14 +59,14 @@ class EtcVC: BaseVC {
     }
     private let signupButton = UIButton().then {
         $0.backgroundColor = UIColor(named: "MainColor")
-        $0.setTitle("다음", for: .normal)
+        $0.setTitle("완료", for: .normal)
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.layer.cornerRadius = 8
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     }
     override func bind() {
         let input = EtcViewModel.Input(emailText: email,
-                                       codeText: code,
+                                       nameText: name,
                                        passwordText: password,
                                        gradeText: grade,
                                        classNumText: classNum,
@@ -78,6 +78,7 @@ class EtcVC: BaseVC {
             switch $0 {
             case true:
                 print("회원가입 성공")
+                self.dismiss(animated: true)
             case false:
                 print("회원가입 실패")
             }
@@ -87,6 +88,9 @@ class EtcVC: BaseVC {
         pickerView.delegate = self
         self.navigationItem.hidesBackButton = true
         nameTextField.rx.text.orEmpty
+            .map { self.name.accept($0)
+                return $0
+            }
             .map { !$0.isEmpty }
             .subscribe(onNext: {
                 self.signupButton.isEnabled = $0
