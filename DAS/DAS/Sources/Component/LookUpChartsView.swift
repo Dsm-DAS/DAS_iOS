@@ -17,9 +17,12 @@ class LookUpChartsView: UIView {
 
     var graphArray: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]
     
-    let firstUnitsSold = [20.0, 30.0, 24.0, 40.0, 52.0, 80.0, 64.0]
+    var firstUnitsSold = [20.0, 30.0, 24.0, 40.0, 52.0, 80.0, 64.0]
     
     override func layoutSubviews() {
+        for i in 0..<7 {
+            firstUnitsSold[i] = Double(Int.random(in: 10..<120))
+        }
         self.layer.cornerRadius = 8
         
         setChart(dataPoints: graphArray, lineValues: firstUnitsSold)
@@ -58,7 +61,10 @@ class LookUpChartsView: UIView {
         let lineChartDataSet = LineChartDataSet(entries: lineDataEntries)
         lineChartDataSet.colors = [.clear]
         lineChartDataSet.label = nil
-        lineChartDataSet.fillColor = .blue
+        let r : CGFloat = CGFloat.random(in: 0...0.9)
+        let g : CGFloat = CGFloat.random(in: 0...0.9)
+        let b : CGFloat = CGFloat.random(in: 0...0.9)
+        lineChartDataSet.fillColor = UIColor(red: r, green: g, blue: b, alpha: 1)
         lineChartDataSet.circleColors = [.clear]
         lineChartDataSet.drawFilledEnabled = true
         lineChartDataSet.valueTextColor = .clear
@@ -69,7 +75,7 @@ class LookUpChartsView: UIView {
         
         lineChartView.data = LineChartData(dataSet: lineChartDataSet)
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: graphArray)
-        lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+        lineChartView.animate(xAxisDuration: 0.5, yAxisDuration: 0.5)
         lineChartView.leftAxis.axisLineColor = .clear
         lineChartView.xAxis.axisLineColor = .clear
         lineChartView.xAxis.setLabelCount(graphArray.count, force: true)

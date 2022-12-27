@@ -4,8 +4,10 @@ import UIKit
 
 class ProFilButton: UIButton {
     let studentImageView = UIImageView().then {
-//        $0.image = UIImage(named: "CellImage")
         $0.layer.cornerRadius = 28
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "CellImage")
     }
     let studentNameLabel = UILabel().then {
         $0.text = ""

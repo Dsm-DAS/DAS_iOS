@@ -1,9 +1,12 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class SkillStackView: UIView {
-    let skillStack = ["React.js", "Next.js", "Node.js", "JavaScript", "Java", "Swift", "Python", "object - C"]
+    var skillStack = BehaviorRelay<[String]>(value: [])
+    let disposeBag = DisposeBag()
     let skillStackLabel = UILabel().then {
         $0.text = "기술 스택"
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -16,14 +19,17 @@ class SkillStackView: UIView {
         layout.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         $0.register(SkillStackCollectionViewCell.self, forCellWithReuseIdentifier: "SkillStackCollectionViewCell")
         $0.showsVerticalScrollIndicator = false
-        $0.isScrollEnabled = false
         $0.collectionViewLayout = layout
     }
-    
+    private func bind() {
+        skillStack.bind(to: skillStackCollectionView.rx.items(cellIdentifier: "SkillStackCollectionViewCell", cellType: SkillStackCollectionViewCell.self)) { row, item, cell in
+            cell.skillStackLabel.text = item
+            cell.backgroundColor = UIColor(named: "SignUpButtonColor")
+        }.disposed(by: disposeBag)
+    }
     override func layoutSubviews() {
         self.layer.cornerRadius = 8
         skillStackCollectionView.delegate = self
-        skillStackCollectionView.dataSource = self
         [
             skillStackLabel,
             skillStackCollectionView
@@ -34,31 +40,27 @@ class SkillStackView: UIView {
         skillStackCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(12)
             $0.top.equalTo(skillStackLabel.snp.bottom).offset(8)
-            $0.height.equalTo(85)
+            $0.bottom.equalToSuperview()
         }
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        bind()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension SkillStackView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        skillStack.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkillStackCollectionViewCell", for: indexPath) as! SkillStackCollectionViewCell
-        cell.skillStackLabel.text = skillStack[indexPath.row]
-        cell.backgroundColor = UIColor(named: "SignUpButtonColor")
-        return cell
-    }
+extension SkillStackView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let label = UILabel().then {
             $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-            $0.text = skillStack[indexPath.row]
+            $0.text = skillStack.value[indexPath.row]
             $0.sizeToFit()
         }
         let size = label.frame.size
-        
         return CGSize(width: size.width + 24, height: size.height + 16)
       }
 }
