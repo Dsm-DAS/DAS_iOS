@@ -6,8 +6,6 @@ import RxCocoa
 
 class PasswordVC: BaseVC {
     var email: String = ""
-    var code: String = ""
-    private var limitTime: Int = 300
     let viewModel = EtcViewModel()
     private let joinLabel = UILabel().then {
         $0.text = "가입"
@@ -74,7 +72,6 @@ class PasswordVC: BaseVC {
             .subscribe(onNext: { [self] in
                 let vc = EtcVC()
                 vc.email = email
-                vc.code = code
                 vc.password = passwordTextField.text!
                 self.navigationController?.pushViewController(vc, animated: true)
             }).disposed(by: disposeBag)

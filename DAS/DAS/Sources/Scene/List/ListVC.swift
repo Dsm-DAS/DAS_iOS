@@ -1,8 +1,8 @@
-
-
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class ListVC: BaseVC {
 
@@ -12,74 +12,67 @@ class ListVC: BaseVC {
         $0.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)], for: .normal)
     }
     
-    let noticeList = NoticeListView()
+    let noticeList = NoticeListVC()
     
-    let clubList = ClubListView()
+    let clubList = ClubListVC()
     
-    let studentList = StudentListView()
+    let studentList = StudentListVC()
     
-    
-    
-  
     override func configureVC() {
-        valueChanged()
-        ListSegmentedControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
+        ListSegmentedControl.rx.selectedSegmentIndex
+            .subscribe(onNext: { [self] in
+            switch $0 {
+            case 0:
+                noticeList.view.isHidden = false
+                clubList.view.isHidden = true
+                studentList.view.isHidden = true
+            case 1:
+                noticeList.view.isHidden = true
+                clubList.view.isHidden = false
+                studentList.view.isHidden = true
+                
+            default:
+                clubList.view.isHidden = true
+                noticeList.view.isHidden = true
+                studentList.view.isHidden = false
+            }
+            }).disposed(by: disposeBag)
     }
-    
-    
-    @objc func valueChanged() {
-        switch ListSegmentedControl.selectedSegmentIndex {
-        case 0:
-            noticeList.isHidden = false
-            clubList.isHidden = true
-            studentList.isHidden = true
-        case 1:
-            noticeList.isHidden = true
-            clubList.isHidden = false
-            studentList.isHidden = true
-            
-        default:
-            clubList.isHidden = true
-            noticeList.isHidden = true
-            studentList.isHidden = false
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        
     }
-    
-    
+
     override func addView() {
         [
-            ListSegmentedControl,
             noticeList,
             clubList,
             studentList
+        ].forEach { self.addChild($0) }
+        [
+            ListSegmentedControl,
+            noticeList.view,
+            clubList.view,
+            studentList.view
         ].forEach { view.addSubview($0) }
     }
     override func setLayout() {
         ListSegmentedControl.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-//            $0.top.equalToSuperview().inset(44)
-            $0.leading.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(44)
-            $0.width.equalTo(358)
         }
-        noticeList.snp.makeConstraints {
+        noticeList.view.snp.makeConstraints {
             $0.top.equalTo(ListSegmentedControl.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        clubList.snp.makeConstraints {
+        clubList.view.snp.makeConstraints {
             $0.top.equalTo(ListSegmentedControl.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        studentList.snp.makeConstraints {
+        studentList.view.snp.makeConstraints {
             $0.top.equalTo(ListSegmentedControl.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
-
-    
-    
-    
-    
-    
-    
 }

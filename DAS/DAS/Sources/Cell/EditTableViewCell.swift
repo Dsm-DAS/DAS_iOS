@@ -19,6 +19,7 @@ class EditTableViewCell: BaseTC {
     }
     
     override func addView() {
+        self.selectionStyle = .none
         [
             editImageView,
             titleLabel,

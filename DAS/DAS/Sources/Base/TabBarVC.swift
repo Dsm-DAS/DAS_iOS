@@ -8,14 +8,13 @@ class TabBarVC: UITabBarController {
         setUpTabBarLayout()
         setUpTabBarItem()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        if Token.accessToken == nil {
-            let vc = LoginVC()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
-        }
-    }
-
+//    override func viewDidAppear(_ animated: Bool) {
+//        if Token.accessToken == nil {
+//            let vc = LoginVC()
+//            vc.modalPresentationStyle = .fullScreen
+//            self.present(vc, animated: true)
+//        }
+//    }
     func setUpTabBarLayout() {
         let tabBar: UITabBar = self.tabBar
         tabBar.unselectedItemTintColor = UIColor(named: "UnSelectedItem")
@@ -31,19 +30,19 @@ class TabBarVC: UITabBarController {
             image: UIImage(named: "Main"),
             selectedImage: UIImage(named: "Main")
         )
-        let listVC = ListVC()
+        let listVC = BaseNC(rootViewController: ListVC())
         listVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(named: "List"),
             selectedImage: UIImage(named: "List")
         )
-        let searchVC = SearchVC()
+        let searchVC = BaseNC(rootViewController: SearchVC())
         searchVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(named: "Search"),
             selectedImage: UIImage(named: "Search")
         )
-        let noticeVC = NoticeVC()
+        let noticeVC = BaseNC(rootViewController: NoticeVC())
         noticeVC.tabBarItem = UITabBarItem(
             title: "",
             image: UIImage(named: "Notice"),

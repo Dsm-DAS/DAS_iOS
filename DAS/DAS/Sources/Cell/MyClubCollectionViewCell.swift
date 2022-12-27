@@ -13,7 +13,6 @@ class MyClubCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         self.layer.cornerRadius = 16
-        self.backgroundColor = .green
         [
             clubImageView,
             clubNameLabel

@@ -60,7 +60,6 @@ class EmailCodeVC: BaseVC {
                 print("코드 맞음")
                 let vc = PasswordVC()
                 vc.email = email
-                vc.code = codeTextField.text!
                 navigationController?.pushViewController(vc, animated: true)
             case false:
                 print("코드 다름")

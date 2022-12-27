@@ -17,7 +17,7 @@ class MenuVC: BaseVC {
         $0.backgroundColor = .white
     }
     private let backView = UIView().then {
-        $0.backgroundColor = .init(named: "MenuBackGround")
+        $0.backgroundColor = .white
     }
     private let editTableView = ExpyTableView().then {
         $0.register(EditTableViewCell.self, forCellReuseIdentifier: "EditTableViewCell")
@@ -50,25 +50,23 @@ class MenuVC: BaseVC {
                 proFilButton.studentImageView.kf.setImage(with: url)
             }
             introduceView.proFilLabel.text = $0.introduce
+            
         }).disposed(by: disposeBag)
     }
     override func addView() {
+        view.backgroundColor = UIColor(named: "MenuBackGround")
         [
             proFilButton,
-            introduceView
-        ].forEach { backView.addSubview($0)}
+            introduceView,
+            backView
+        ].forEach { view.addSubview($0)}
         [
-            backView,
             editTableView
-        ].forEach { view.addSubview($0) }
+        ].forEach { backView.addSubview($0) }
         
     }
 
     override func setLayout() {
-        backView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(273)
-        }
         proFilButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -79,9 +77,13 @@ class MenuVC: BaseVC {
             $0.height.equalTo(108)
             $0.top.equalTo(proFilButton.snp.bottom)
         }
-        editTableView.snp.makeConstraints {
+        backView.snp.makeConstraints {
             $0.top.equalTo(introduceView.snp.bottom).offset(16)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        editTableView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
     }
 }
@@ -133,6 +135,15 @@ extension MenuVC: ExpyTableViewDelegate, ExpyTableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! EditTableViewCell
+        if cell.titleLabel.text == "로그아웃" {
+            Token.refreshToken = nil
+            let vc = LoginVC()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        } else if cell.titleLabel.text == "비밀번호 변경" {
+            let vc = ChangePasswordVC()
+            self.present(vc, animated: true)
+        }
         if indexPath.row == 0 {
             if expyTableViewState.tableState[indexPath.section] {
                 cell.chevronImageView.image = UIImage(systemName: "chevron.down")
