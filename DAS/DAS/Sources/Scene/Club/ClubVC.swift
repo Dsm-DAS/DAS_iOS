@@ -3,10 +3,17 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 class ClubVC: BaseVC {
+    var clubId = 0
+    private let viewModel = ClubViewModel()
+    private let clubList = PublishRelay<Void>()
     private let backView = UIView().then {
-        $0.backgroundColor = .purple
+        let r : CGFloat = CGFloat.random(in: 0.7...1)
+        let g : CGFloat = CGFloat.random(in: 0.7...1)
+        let b : CGFloat = CGFloat.random(in: 0.7...1)
+        $0.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
     }
     private let clubImageView = UIImageView().then {
         $0.image = UIImage(named: "ClubImageMini")
@@ -14,6 +21,15 @@ class ClubVC: BaseVC {
     private let titleLabel = UILabel().then {
         $0.text = "멋진로고동아리"
         $0.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+    }
+    private let clubTypeLabel = UILabel().then {
+        $0.text = ""
+        $0.textColor = .white
+        $0.layer.cornerRadius = 8
+        $0.clipsToBounds = true
+        $0.backgroundColor = UIColor(named: "ClubType")
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        $0.textAlignment = .center
     }
     private let tagLabel = UILabel().then {
         $0.text = "#백엔드 #프론트엔드 #웹 #뭐시기"
@@ -28,9 +44,20 @@ class ClubVC: BaseVC {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .regular)
     }
     private let lookUpLabel = UILabel().then {
-        $0.text = "조회 148"
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .light)
-        $0.textColor = UIColor(named: "LookUp")
+        $0.backgroundColor = UIColor(named: "SignUpButtonColor")
+        $0.layer.cornerRadius = 14
+        $0.clipsToBounds = true
+        $0.text = "31 조회"
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.textAlignment = .center
+    }
+    private let heartView = HeartView().then {
+        $0.heartButton.isEnabled = true
+        $0.heartCountLabel.text = "23"
+        $0.layer.cornerRadius = 14
+        $0.heartButton.tintColor = .black
+        $0.heartCountLabel.textColor = .black
+        $0.backgroundColor = UIColor(named: "SignUpButtonColor")
     }
     private let clubMemberLabel = UILabel().then {
         $0.text = "부원"
@@ -48,11 +75,30 @@ class ClubVC: BaseVC {
         view.showsVerticalScrollIndicator = false
         return view
     }()
-
-    override func configureVC() {
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
-        clubMemberCollectionView.delegate = self
-        clubMemberCollectionView.dataSource = self
+        clubList.accept(())
+        clubMemberCollectionView.reloadData()
+    }
+    override func bind() {
+        let input = ClubViewModel.Input(clubId: clubId, clubDetailList: clubList.asSignal())
+        let output = viewModel.transform(input)
+        output.userList.bind(to: clubMemberCollectionView.rx.items(cellIdentifier: "StudentCollectionViewCell", cellType: StudentCollectionViewCell.self)) { row, item, cell in
+            cell.studentNameLabel.text = item.name
+            cell.studentImageView.kf.setImage(with: URL(string: item.profile_image_url))
+            cell.lookUpCount.isHidden = true
+        }.disposed(by: disposeBag)
+        output.clubDetailList.subscribe(onNext: { [self] in
+            titleLabel.text = $0.club_name
+            clubImageView.kf.setImage(with: URL(string: $0.club_image_url))
+            if $0.club_type == "MAIN" {
+                clubTypeLabel.text = "전공"
+            }
+            tagLabel.text = "#\($0.club_category)"
+            subTitle.text = $0.club_introduce
+            lookUpLabel.text = "\($0.club_views) 조회"
+        }).disposed(by: disposeBag)
     }
     
     override func addView() {
@@ -60,8 +106,10 @@ class ClubVC: BaseVC {
             backView,
             clubImageView,
             titleLabel,
+            clubTypeLabel,
             tagLabel,
             subTitle,
+            heartView,
             lookUpLabel,
             clubMemberLabel,
             clubMemberCollectionView
@@ -78,8 +126,14 @@ class ClubVC: BaseVC {
             $0.width.height.equalTo(88)
         }
         titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview().offset(-10)
+            $0.centerX.equalToSuperview().offset(-20)
             $0.top.equalTo(clubImageView.snp.bottom).offset(18)
+        }
+        clubTypeLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
+            $0.top.equalTo(clubImageView.snp.bottom).offset(24)
+            $0.width.equalTo(36)
+            $0.height.equalTo(24)
         }
         tagLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(4)
@@ -90,9 +144,21 @@ class ClubVC: BaseVC {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(267)
         }
-        lookUpLabel.snp.makeConstraints {
+        heartView.snp.makeConstraints {
             $0.top.equalTo(subTitle.snp.bottom).offset(4)
-            $0.centerX.equalToSuperview()
+            $0.trailing.equalTo(lookUpLabel.snp.leading).offset(-8)
+            $0.height.equalTo(28)
+        }
+        lookUpLabel.snp.makeConstraints {
+            let label = UILabel().then {
+                $0.text = lookUpLabel.text
+                $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+                $0.sizeToFit()
+            }
+            $0.top.equalTo(subTitle.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview().offset(35)
+            $0.width.equalTo(label.frame.width + 16)
+            $0.height.equalTo(28)
         }
         clubMemberLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(21)
@@ -104,17 +170,5 @@ class ClubVC: BaseVC {
             $0.bottom.equalToSuperview()
             $0.top.equalTo(clubMemberLabel.snp.bottom).offset(12)
         }
-    }
-}
-
-extension ClubVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StudentCollectionViewCell", for: indexPath) as! StudentCollectionViewCell
-        cell.studentImageView.image = UIImage(named: "CellImage")
-        return cell
     }
 }
