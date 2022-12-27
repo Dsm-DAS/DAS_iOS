@@ -38,7 +38,7 @@ class ClubListVC: BaseVC {
         let input = ClubListViewModel.Input(clubList: clubList.asSignal(onErrorJustReturn: ()))
         let output = viewModel.transform(input)
         output.clubList.bind(to: clubListTableView.rx.items(cellIdentifier: "ClubTableViewCell", cellType: ClubTableViewCell.self)) { row, item, cell in
-//            cell.clubImageView.kf.setImage(with: URL(string: item.club_image_url))
+            cell.clubImageView.kf.setImage(with: URL(string: item.club_image_url))
             cell.clubNameLabel.text = item.club_name
             cell.tagLabel.text = "#\(item.club_type) #\(item.club_category)"
             cell.clubId = item.club_id

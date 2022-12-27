@@ -20,6 +20,8 @@ class NoticeListDetailVC: BaseVC {
     }
     private let clubImageView = UIImageView().then {
         $0.image = UIImage(named: "ClubImageMini")
+        $0.layer.cornerRadius = 16
+        $0.clipsToBounds = true
     }
     private let clubTitleLable = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
