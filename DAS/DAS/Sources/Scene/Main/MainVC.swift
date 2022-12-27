@@ -3,12 +3,15 @@ import SnapKit
 import Then
 import RxCocoa
 import RxSwift
-
+import Kingfisher
 
 class MainVC: BaseVC {
-    var images = ["ClubImage", "ClubImage", "ClubImage", "ClubImage", "ClubImage", "ClubImage"]
+    var images = ["모딥", "DMS", "ClubImage", "ClubImage", "ClubImage", "ClubImage"]
+    var titles = ["모딥", "DMS", "동아리 이름을 입력", "동아리 이름을 입력", "동아리 이름을 입력", "동아리 이름을 입력"]
     let viewModel = MainViewModel()
     private let refresh = PublishRelay<Void>()
+    private let userList = PublishRelay<Void>()
+    private let clubList = PublishRelay<Void>()
     private let clubScrollView = UIScrollView().then {
         $0.showsHorizontalScrollIndicator = false
         $0.isPagingEnabled = true
@@ -20,12 +23,11 @@ class MainVC: BaseVC {
         $0.font = UIFont.boldSystemFont(ofSize: 24)
         $0.textColor = .white
     }
-    private let pageControl = UIPageControl().then {
-        $0.addTarget(MainVC.self, action: #selector(pageControlDidTap), for: .valueChanged)
-    }
+    private let pageControl = UIPageControl()
 
     private let collectionScrollView = UIScrollView().then {
         $0.backgroundColor = .white
+        $0.showsVerticalScrollIndicator = false
     }
     private let collectionContentView = UIView()
     
@@ -78,44 +80,66 @@ class MainVC: BaseVC {
     }()
 
     override func configureVC() {
+        pageControl.addTarget(self, action: #selector(pageControlDidTap), for: .valueChanged)
         self.view.backgroundColor = UIColor(named: "topViewBackGround")
-        delegates()
+        clubScrollView.delegate = self
+        collectionScrollView.delegate = self
+        clubCollectionView.delegate = self
+        studentCollectionView.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         refresh.accept(())
     }
-//    override func bind() {
-//        let input = MainViewModel.Input(refreshToken: refresh.asSignal())
-//        let output = viewModel.transform(input)
-//        output.result.subscribe(onNext: {
-//            switch $0 {
-//            case true:
-//                return
-//            default:
-//                let vc = LoginVC()
-//                vc.modalPresentationStyle = .fullScreen
-//                self.present(vc, animated: true)
-//            }
-//        }).disposed(by: disposeBag)
-//    }
+    override func bind() {
+        let input = MainViewModel.Input(refreshToken: refresh.asSignal(),
+                                        userList: userList.asSignal(),
+                                        clubList: clubList.asSignal())
+        let output = viewModel.transform(input)
+        output.result.subscribe(onNext: {
+            switch $0 {
+            case true:
+                self.userList.accept(())
+                self.clubList.accept(())
+            default:
+                let vc = LoginVC()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+            }
+        }).disposed(by: disposeBag)
+        output.userList.bind(to: studentCollectionView.rx.items(cellIdentifier: "StudentCollectionViewCell", cellType: StudentCollectionViewCell.self)) { row, item, cell in
+            let url = URL(string: item.profile_image_url)
+            cell.studentImageView.kf.setImage(with: url)
+            cell.studentNameLabel.text = item.name
+            cell.lookUpCount.text = "\(item.view_counts) 조회"
+            cell.userId = item.user_id
+        }.disposed(by: disposeBag)
+
+        output.clubList.bind(to: clubCollectionView.rx.items(cellIdentifier: "ClubCollectionViewCell", cellType: ClubCollectionViewCell.self)) { row, item, cell in
+            cell.clubNameLabel.text = item.club_name
+            cell.tagLabel.text = "#\(item.club_type) #\(item.club_category)"
+            cell.heartView.heartCountLabel.text = "\(item.like_counts)"
+            cell.heartView.heartButton.isEnabled = false
+            cell.clubId = item.club_id
+            cell.clubImageView.kf.setImage(with: URL(string: item.club_image_url))
+            let r : CGFloat = CGFloat.random(in: 0.7...1)
+            let g : CGFloat = CGFloat.random(in: 0.7...1)
+            let b : CGFloat = CGFloat.random(in: 0.7...1)
+            UIView.animate(withDuration: 0.5, animations: {
+                cell.backView.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
+            })
+        }.disposed(by: disposeBag)
+    }
     @objc
     private func pageControlDidTap(_ sender: UIPageControl) {
         let current = sender.currentPage
         clubScrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
     }
-    private func delegates() {
-        clubCollectionView.delegate = self
-        clubCollectionView.dataSource = self
-        studentCollectionView.delegate = self
-        studentCollectionView.dataSource = self
-        clubScrollView.delegate = self
-        collectionScrollView.delegate = self
-    }
     private func addContentScrollView() {
         for i in 0..<images.count {
             let imageView = UIImageView()
             imageView.image = UIImage(named: images[i])
+            imageView.contentMode = .scaleAspectFit
             clubContentView.addSubview(imageView)
             imageView.snp.makeConstraints {
                 $0.centerX.equalTo(view.frame.width / 2 + view.frame.width * CGFloat(i))
@@ -212,15 +236,14 @@ class MainVC: BaseVC {
         }
     }
 }
-extension MainVC : UIScrollViewDelegate {
+extension MainVC: UIScrollViewDelegate {
     private func setPageControl() {
         pageControl.numberOfPages = images.count
     }
-    
     private func setPageControlSelectedPage(currentPage:Int) {
         pageControl.currentPage = currentPage
+        clubNameLabel.text = titles[currentPage]
     }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == clubScrollView {
             let value = scrollView.contentOffset.x/scrollView.bounds.size.width
@@ -229,40 +252,19 @@ extension MainVC : UIScrollViewDelegate {
     }
 }
 
-extension MainVC :UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == clubCollectionView {
-            return 10
-        } else if collectionView == studentCollectionView {
-            return 20
-        } else {
-            return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == clubCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClubCollectionViewCell", for: indexPath) as! ClubCollectionViewCell
-            cell.clubImageView.image = UIImage(named: "ClubImageMini" )
-            cell.clubNameLabel.text = "동아리 이름"
-            
-            return cell
-        } else if collectionView == studentCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StudentCollectionViewCell", for: indexPath) as! StudentCollectionViewCell
-            cell.studentImageView.image = UIImage(named: "CellImage")
-            return cell
-        } else {
-            return UICollectionViewCell()
-        }
-
-    }
+extension MainVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case clubCollectionView:
+            let cell = collectionView.cellForItem(at: indexPath) as! ClubCollectionViewCell
             let vc = ClubVC()
+            vc.clubId = cell.clubId
             self.navigationController?.pushViewController(vc, animated: true)
         default:
-            print("nil")
+            let cell = collectionView.cellForItem(at: indexPath) as! StudentCollectionViewCell
+            let vc = UserProFilVC()
+            vc.userId = cell.userId
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
