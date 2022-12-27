@@ -10,17 +10,7 @@ import SnapKit
 import Then
 
 class NoticeTableViewCell: UITableViewCell {
-    
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
+    var feedId = 0
     let titleLabel = UILabel().then {
         $0.text = "어쩌구 저쩌구 모집합니다"
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -33,16 +23,12 @@ class NoticeTableViewCell: UITableViewCell {
     }
     let clubImageView = UIImageView().then {
         $0.image = UIImage(named: "ClubImageMini")
-        
     }
-    let BottomLineView = UIView().then {
-        
+    private let BottomLineView = UIView().then {
         $0.backgroundColor = UIColor(named: "PickerLine")
-        
     }
     
     override func layoutSubviews() {
-        
         addSubview()
         makeLayoutConstraint()
     }
@@ -58,8 +44,6 @@ class NoticeTableViewCell: UITableViewCell {
     }
     
     func makeLayoutConstraint() {
-        
-        
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(14)
             $0.leading.equalToSuperview()

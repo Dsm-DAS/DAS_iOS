@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 import Then
 
-class StudentFilterCollectionViewCell: UICollectionViewCell {
+class FilterCollectionViewCell: UICollectionViewCell {
+    var bool = false
     let nameLabel = UILabel().then {
         $0.text = ""
         $0.font = .systemFont(ofSize: 16, weight: .regular)
@@ -18,8 +19,7 @@ class StudentFilterCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         self.layer.cornerRadius = 18
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(named: "SignUpButtonColor")?.cgColor
-        
+        self.layer.borderColor = UIColor(named: "BackGroundColor3")?.cgColor
         contentView.addSubview(nameLabel)
         
         nameLabel.snp.makeConstraints {
