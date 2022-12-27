@@ -66,6 +66,117 @@ final class Service {
             }
     }
     
+    func userListLookUp() -> Single<(UserListModel?, networkingResult)> {
+        return provider.rx.request(.userListLookUp)
+            .filterSuccessfulStatusCodes()
+            .map(UserListModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    
+    func clubListLookUp() -> Single<(ClubListModel?, networkingResult)> {
+        return provider.rx.request(.clubListLookUp)
+            .filterSuccessfulStatusCodes()
+            .map(ClubListModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    func feedListLookUp() -> Single<(FeedListModel?, networkingResult)> {
+        return provider.rx.request(.feedListLookUp)
+            .filterSuccessfulStatusCodes()
+            .map(FeedListModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    func feedDetailList(_ feedId: Int) -> Single<(FeedDetailListModel?, networkingResult)> {
+        return provider.rx.request(.feedDetailList(feedId: feedId))
+            .filterSuccessfulStatusCodes()
+            .map(FeedDetailListModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    func commentDelete(_ commentId: Int) -> Single<networkingResult> {
+        return provider.rx.request(.commentDelete(commentId: commentId))
+            .filterSuccessfulStatusCodes()
+            .map{ response -> networkingResult in
+                return .deleteOk
+            }
+            .catch {[unowned self] in return .just(setNetworkError($0))}
+    }
+    func getNotice() -> Single<(NoticeResponseListModel?, networkingResult)> {
+        return provider.rx.request(.getNotice)
+            .filterSuccessfulStatusCodes()
+            .map(NoticeResponseListModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    func clubDetailList(_ clubId: Int) -> Single<(ClubDetailModel?, networkingResult)> {
+        return provider.rx.request(.clubDetailList(clubId: clubId))
+            .filterSuccessfulStatusCodes()
+            .map(ClubDetailModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    func userDetailList(_ userID: Int) -> Single<(UserDetailModel?, networkingResult)> {
+        return provider.rx.request(.userDetailList(userId: userID))
+            .filterSuccessfulStatusCodes()
+            .map(UserDetailModel.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    func commentPost(_ feedId: Int, _ content: String) -> Single<networkingResult> {
+        return provider.rx.request(.commentPost(feedID: feedId, content: content))
+            .filterSuccessfulStatusCodes()
+            .map{ response -> networkingResult in
+                return .createOk
+            }
+            .catch {[unowned self] in return .just(setNetworkError($0))}
+    }
+    func commentPatch(_ commentId: Int, _ comment: String) -> Single<networkingResult> {
+        return provider.rx.request(.commentPatch(commentId: commentId, comment: comment))
+            .filterSuccessfulStatusCodes()
+            .map{ response -> networkingResult in
+                return .deleteOk
+            }
+            .catch {[unowned self] in return .just(setNetworkError($0))}
+    }
+    func changePassword(_ password: String, _ newPassword: String) -> Single<networkingResult> {
+        return provider.rx.request(.changePassword(password: password, newPassword: newPassword))
+            .filterSuccessfulStatusCodes()
+            .map{ response -> networkingResult in
+                return .deleteOk
+            }
+            .catch {[unowned self] in return .just(setNetworkError($0))}
+    }
+    func changeMyPage(_ image: String, _ name: String, _ major: String, _ intrduce: String, _ stack: String, _ facebook: String, _ github: String, _ instagram: String, _ region: String) -> Single<networkingResult> {
+        return provider.rx.request(.changeMyPage(image: image, name: name, introduce: intrduce, major: major, stack: stack, region: region, github: github, instagram: instagram, facebook: facebook))
+            .filterSuccessfulStatusCodes()
+            .map{ response -> networkingResult in
+                return .deleteOk
+            }
+            .catch {[unowned self] in return .just(setNetworkError($0))}
+    }
     func setNetworkError(_ error: Error) -> networkingResult {
             print(error)
             print(error.localizedDescription)
