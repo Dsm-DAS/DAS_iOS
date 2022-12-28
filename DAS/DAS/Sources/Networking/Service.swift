@@ -169,8 +169,16 @@ final class Service {
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}
     }
-    func changeMyPage(_ image: String, _ name: String, _ major: String, _ intrduce: String, _ stack: String, _ facebook: String, _ github: String, _ instagram: String, _ region: String) -> Single<networkingResult> {
-        return provider.rx.request(.changeMyPage(image: image, name: name, introduce: intrduce, major: major, stack: stack, region: region, github: github, instagram: instagram, facebook: facebook))
+    func changeMyPage(
+        _ image: String, _ name: String, _ major: String,
+        _ intrduce: String, _ stack: String, _ facebook: String,
+        _ github: String, _ instagram: String, _ region: String
+    ) -> Single<networkingResult> {
+        return provider.rx.request(.changeMyPage(
+            image: image, name: name, introduce: intrduce,
+            major: major, stack: stack, region: region,
+            github: github, instagram: instagram, facebook: facebook)
+        )
             .filterSuccessfulStatusCodes()
             .map{ response -> networkingResult in
                 return .deleteOk

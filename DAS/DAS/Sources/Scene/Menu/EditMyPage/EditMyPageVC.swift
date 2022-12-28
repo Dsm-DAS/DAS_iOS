@@ -19,7 +19,7 @@ class EditMyPageVC: BaseVC {
         $0.clipsToBounds = true
         $0.image = UIImage(named: "ClubImageMini")
     }
-    private let changeImageButton = UIButton().then {
+    private let changeImageButton = UIButton(type: .system).then {
         $0.backgroundColor = UIColor(named: "MainColor")
         $0.layer.cornerRadius = 8
         $0.setTitle("이미지 변경", for: .normal)

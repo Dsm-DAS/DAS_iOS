@@ -1,6 +1,7 @@
 import UIKit
 import Then
 import SnapKit
+
 class EmptyView: UIView {
     let emptyImageView = UIImageView()
     

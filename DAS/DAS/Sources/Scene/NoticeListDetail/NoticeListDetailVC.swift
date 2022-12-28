@@ -9,6 +9,7 @@ class NoticeListDetailVC: BaseVC {
     private let viewModel = NoticeListDetailViewModel()
     var feedId = 0
     var commentId = 0
+    var url: String = ""
     private let noticeDetailList = PublishRelay<Void>()
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -23,7 +24,7 @@ class NoticeListDetailVC: BaseVC {
         $0.layer.cornerRadius = 16
         $0.clipsToBounds = true
     }
-    private let clubTitleLable = UILabel().then {
+    private let clubTitleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         $0.text = "멋진로고동아리"
     }
@@ -50,8 +51,13 @@ class NoticeListDetailVC: BaseVC {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         $0.textColor = UIColor(named: "TextColor")
     }
-    private let urlDateLabel = UILabel().then {
-        $0.text = "https://forms.google.com/form/yo..."
+    private let urlImageView = UIImageView().then {
+        $0.image = UIImage(named: "URL")
+    }
+    private let urlDateButton = UIButton(type: .system).then {
+        $0.setTitle("https://forms.google.com/form/yo...", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
     }
     private let imageDataView = UIImageView()
     private let mainTextView = UILabel().then {
@@ -81,10 +87,11 @@ class NoticeListDetailVC: BaseVC {
         output.noticeDetailList.subscribe(onNext: { [self] in
             titleLabel.text = $0.title
             clubImageView.kf.setImage(with: URL(string: $0.writer.profile_image_url))
-            clubTitleLable.text = $0.writer.name
+            clubTitleLabel.text = $0.writer.name
             recruitmentMajorDataLabel.text = $0.major
             termDataLabel.text = $0.end_at
-            urlDateLabel.text = $0.das_url
+            urlDateButton.setTitle($0.das_url, for: .normal)
+            self.url = $0.das_url
             mainTextView.text = $0.content
             let count = $0.comment_list.count
             commentCollectionView.snp.updateConstraints {
@@ -115,9 +122,13 @@ class NoticeListDetailVC: BaseVC {
                         sheet.prefersGrabberVisible = true
                         self.present(vc, animated: true)
                     }
-                    vc.isModalInPresentation = true
                 }
             }).disposed(by: disposeBag)
+        urlDateButton.rx.tap
+            .subscribe(onNext: {
+                UIApplication.shared.open(URL(string: self.url)!)
+            })
+            .disposed(by: disposeBag)
     }
     override func addView() {
         view.addSubview(scrollView)
@@ -125,13 +136,14 @@ class NoticeListDetailVC: BaseVC {
         [
             titleLabel,
             clubImageView,
-            clubTitleLable,
+            clubTitleLabel,
             recruitmentMajorLabel,
             recruitmentMajorDataLabel,
             termLabel,
             termDataLabel,
             urlLabel,
-            urlDateLabel,
+            urlImageView,
+            urlDateButton,
             imageDataView,
             mainTextView,
             commentLabel,
@@ -156,7 +168,7 @@ class NoticeListDetailVC: BaseVC {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.height.width.equalTo(36)
         }
-        clubTitleLable.snp.makeConstraints {
+        clubTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(clubImageView.snp.trailing).offset(8)
             $0.top.equalTo(titleLabel.snp.bottom).offset(14)
         }
@@ -180,12 +192,18 @@ class NoticeListDetailVC: BaseVC {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(termDataLabel.snp.bottom).offset(8)
         }
-        urlDateLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(40)
+        urlImageView.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.top.equalTo(urlLabel.snp.bottom).offset(2)
+            $0.width.height.equalTo(20)
+        }
+        urlDateButton.snp.makeConstraints {
+            $0.leading.equalTo(urlImageView.snp.trailing).offset(4)
             $0.top.equalTo(urlLabel.snp.bottom)
+            $0.height.equalTo(22)
         }
         imageDataView.snp.makeConstraints {
-            $0.top.equalTo(urlDateLabel.snp.bottom).offset(16)
+            $0.top.equalTo(urlDateButton.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         mainTextView.snp.makeConstraints {

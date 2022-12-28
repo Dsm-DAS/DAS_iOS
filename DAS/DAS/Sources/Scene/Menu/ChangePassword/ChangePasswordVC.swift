@@ -47,7 +47,7 @@ class ChangePasswordVC: BaseVC {
     private let passwordStateImageView = UIImageView().then {
         $0.image = UIImage(named: "CheckSign.x")
     }
-    private let nextButton = UIButton().then {
+    private let nextButton = UIButton(type: .system).then {
         $0.backgroundColor = UIColor(named: "MainColor")
         $0.setTitle("다음", for: .normal)
         $0.setTitleColor(UIColor.white, for: .normal)

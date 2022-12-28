@@ -2,6 +2,7 @@ import UIKit
 import Charts
 import SnapKit
 import Then
+
 class LookUpChartsView: UIView {
     private let lookUpLabel = UILabel().then {
         $0.text = "조회 수"
