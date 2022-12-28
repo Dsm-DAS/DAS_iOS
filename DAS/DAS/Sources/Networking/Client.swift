@@ -1,8 +1,6 @@
 import Foundation
 import Moya
 
-let MY = MoyaProvider<API>()
-
 enum API {
     //user
     case login(email: String, password: String)
